@@ -11,8 +11,17 @@
       .state('home', {
         url: '/',
         templateUrl: 'app/main/main.html',
-        controller: 'MainController',
-        controllerAs: 'main'
+        controller: 'MainController'
+      })
+      .state('login', {
+        url: '/about',
+        templateUrl: 'app/components/login/login-partial.html',
+        controller: 'MainController'
+      })
+      .state('notification', {
+        url: '/notification',
+        templateUrl: 'app/components/notification/notification-partial.html',
+        controller: 'MainController'
       });
 
     $urlRouterProvider.otherwise('/');
