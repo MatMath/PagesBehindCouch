@@ -1,14 +1,14 @@
 (function() {
-  'use strict';
+	'use strict';
 
-  angular
-    .module('pagesBehindCouch')
-    .config(config);
+	angular
+		.module('pagesBehindCouch')
+		.config(config);
 
-  /** @ngInject */
-  function config($logProvider) {
-    // Enable log
-    $logProvider.debugEnabled(true);
-  }
+	/** @ngInject */
+	function config($logProvider) {
+		// Enable log
+		$logProvider.debugEnabled(true);
+	}
 
 })();

@@ -3,11 +3,10 @@
 
 	angular
 		.module('pagesBehindCouch')
-		.controller('MainController', MainController);
+		.controller('NotificationController', NotificationController);
 
 	/** @ngInject */
-	function MainController($timeout) {
+	function NotificationController($timeout) {
 		//Body here
-		var vm = this;
 	}
 })();

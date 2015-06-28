@@ -1,4 +1,7 @@
-Readme file
+------------------------------------------------
+Goal:
+------------------------------------------------
+Making a Simple, but complete structure with many pages behind a protected login pages that connect to a CouchDB.
 
 How to run it locally:
 $ gulp server
@@ -17,10 +20,10 @@ V.old. We had a Big and old angular app
 	- It was stable (ish) but:
 	- Refactor was needed for the core elements
 	
-V.Now. Starting with better tools and best practices structure at the moment.
+V.Now. Starting with better tools and best practices structure
 	- Gulp file 
 	- Fully testable
-	- Single Communication --> To Couch DB Server and Local. 
+	- Single Communication --> To Couch DB Server
 
 
 ------------------------------------------------
@@ -43,6 +46,7 @@ Internal Structure:
 ------------------------------------------------
 Target process
 ------------------------------------------------
+Secure wrapper for internal pages.
 Split the Services and the Controller so the loadtime is faster.
 
 ------------------------------------------------

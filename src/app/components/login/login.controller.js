@@ -3,11 +3,10 @@
 
 	angular
 		.module('pagesBehindCouch')
-		.controller('MainController', MainController);
+		.controller('LoginController', LoginController);
 
 	/** @ngInject */
-	function MainController($timeout) {
+	function LoginController($timeout) {
 		//Body here
-		var vm = this;
 	}
 })();
