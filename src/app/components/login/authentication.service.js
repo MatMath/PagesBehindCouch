@@ -5,9 +5,9 @@
 		.module('pagesBehindCouch')
 		.factory('AuthenticationService', AuthenticationService);
 
-	AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService'];
+	AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$timeout', 'UserService'];
 
-	function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService) {
+	function AuthenticationService($http, $cookies, $rootScope, $timeout, UserService) {
 		var service = {};
 
 		service.Login = Login;
@@ -58,12 +58,12 @@
 			};
 
 			$http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
-			$cookieStore.put('globals', $rootScope.globals);
+			$cookies.put('globals', $rootScope.globals);
 		}
 
 		function ClearCredentials() {
 			$rootScope.globals = {};
-			$cookieStore.remove('globals');
+			$cookies.remove('globals');
 			$http.defaults.headers.common.Authorization = 'Basic ';
 		}
 	}
