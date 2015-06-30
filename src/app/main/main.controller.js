@@ -10,9 +10,9 @@
 		//Body here
 		var vm = this;
 		vm.pleaseAlertMe2 = function() {
-        	console.log("PLEASE");
-        	alert("Common Tabarnack");
-        };
+			console.log("PLEASE");
+			alert("Common Tabarnack");
+		};
 
 	}
 })();

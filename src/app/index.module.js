@@ -1,7 +1,7 @@
 (function() {
-  'use strict';
+	'use strict';
 
-  angular
-    .module('pagesBehindCouch', ['ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap']);
+	angular
+		.module('pagesBehindCouch', ['ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap']);
 
 })();
