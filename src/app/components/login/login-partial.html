@@ -1,5 +1,5 @@
-<div class="col-md-6 col-md-offset-3" ng-click="pleaseAlertMe()">
-    <h2 ng-click="pleaseAlertMe()">Login</h2>
+<div class="col-md-6 col-md-offset-3">
+    <h2>Login</h2>
     <div ng-show="flash.message" class="alert alert-danger">{{flash.message}}</div>
     <form name="form" ng-submit="loginCtr.login()" role="form">
         <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">

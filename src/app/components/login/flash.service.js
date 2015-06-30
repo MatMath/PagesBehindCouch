@@ -10,12 +10,8 @@
 	function FlashService($rootScope) {
 		var service = {};
 
-		service.Success = Success;
-		service.Error = Error;
-
 		initService();
 
-		return service;
 
 		function initService() {
 			$rootScope.$on('$locationChangeStart', function() {
@@ -35,21 +31,23 @@
 			}
 		}
 
-		function Success(message, keepAfterLocationChange) {
+		service.Success = function(message, keepAfterLocationChange) {
 			$rootScope.flash = {
 				message: message,
 				type: 'success',
 				keepAfterLocationChange: keepAfterLocationChange
 			};
-		}
+		};
 
-		function Error(message, keepAfterLocationChange) {
+		service.Error = function (message, keepAfterLocationChange) {
 			$rootScope.flash = {
 				message: message,
 				type: 'error',
 				keepAfterLocationChange: keepAfterLocationChange
 			};
-		}
+		};
+		
+		return service;
 	}
 
 })();
