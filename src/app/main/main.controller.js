@@ -6,8 +6,13 @@
 		.controller('MainController', MainController);
 
 	/** @ngInject */
-	function MainController($timeout) {
+	function MainController() {
 		//Body here
 		var vm = this;
+		vm.pleaseAlertMe2 = function() {
+        	console.log("PLEASE");
+        	alert("Common Tabarnack");
+        };
+
 	}
 })();

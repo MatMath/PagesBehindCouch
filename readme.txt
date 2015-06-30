@@ -52,6 +52,9 @@ Split the Services and the Controller so the loadtime is faster.
 ------------------------------------------------
 Reference docs that were read/referenced:
 ------------------------------------------------
+Best Practices:
+https://github.com/johnpapa/angular-styleguide
+
 Angular1.4+ Big Project structure:
 https://medium.com/opinionated-angularjs/scalable-code-organization-in-angularjs-9f01b594bf06
 https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub

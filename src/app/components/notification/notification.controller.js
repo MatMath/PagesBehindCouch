@@ -8,5 +8,6 @@
 	/** @ngInject */
 	function NotificationController($timeout) {
 		//Body here
+		var vm = this;
 	}
 })();

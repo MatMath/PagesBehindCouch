@@ -1,11 +1,21 @@
-<div class="container">
-
-  <div>
-    <acme-navbar creationDate="main.creationDate" />
-  </div>
-
-  <div class="jumbotron text-center">
-    <h1>'Login, 'login :)</h1>
-  </div>
-
+<div class="col-md-6 col-md-offset-3" ng-click="pleaseAlertMe()">
+    <h2 ng-click="pleaseAlertMe()">Login</h2>
+    <div ng-show="flash.message" class="alert alert-danger">{{flash.message}}</div>
+    <form name="form" ng-submit="loginCtr.login()" role="form">
+        <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" class="form-control" ng-model="loginCtr.username" required />
+            <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="form-control" ng-model="loginCtr.password" required />
+            <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+        </div>
+        <div class="form-actions">
+            <button type="submit" ng-disabled="form.$invalid || loginCtr.dataLoading" class="btn btn-primary">Login</button>
+            <img ng-if="loginCtr.dataLoading" src="/favicon.ico" />
+            <a href="#/register" class="btn btn-link">Register</a>
+        </div>
+    </form>
 </div>
