@@ -16,7 +16,9 @@
 
 		return service;
 
-		function Login(username, password, callback) {
+		function Login(username, password) {
+			var deferred = Q.defer();
+
 
 			/* Use this for real authentication
 						 ----------------------------------------------*/
@@ -25,25 +27,27 @@
 			// - CORS need to have "methods = GET, POST, PUT, DELETE"
 			// - CouchDB do not seems to be able to log directly, need a extra service like a Node Login or Nginx
 
-			$http({
+			CORS.makeCORSRequest({
 				url: 'https://localhost:6984/_session',
 				method: "POST",
 				data: {
-					username: username,
+					name: username,
 					password: password
 				},
-				withCredentials: true
-			})
-				.success(function(response) {
+			}).then(
+				function(response) {
 					console.log("success", response);
-					callback(response);
-				})
-				.error(function(response, status, headers, config) {
-					// console.log("error", response);
+					deferred.resolve(response);
+				},
+				function(reason) {
+					console.log("error", reason);
+					deferred.reject(reason);
 					// Current system retrn an error, but the error actually have information like invalid login "401"
-					callback(response);
-				});
+				}).fail(function(exception) {
+				console.warn("there was an exception ", exception, exception.stack);
+			});
 
+			return deferred.promise;
 		}
 
 		function SetCredentials(username, password, extraInfo) {
