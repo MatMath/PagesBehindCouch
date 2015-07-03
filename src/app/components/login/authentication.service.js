@@ -1,3 +1,4 @@
+/* global Q, CORS */
 (function() {
 	'use strict';
 
@@ -17,8 +18,6 @@
 		return service;
 
 		function Login(username, password) {
-			var deferred = Q.defer();
-
 
 			/* Use this for real authentication
 						 ----------------------------------------------*/
@@ -27,32 +26,20 @@
 			// - CORS need to have "methods = GET, POST, PUT, DELETE"
 			// - CouchDB do not seems to be able to log directly, need a extra service like a Node Login or Nginx
 
-			CORS.makeCORSRequest({
+			return CORS.makeCORSRequest({
 				url: 'https://localhost:6984/_session',
 				method: "POST",
 				data: {
 					name: username,
 					password: password
 				},
-			}).then(
-				function(response) {
-					console.log("success", response);
-					deferred.resolve(response);
-				},
-				function(reason) {
-					console.log("error", reason);
-					deferred.reject(reason);
-					// Current system retrn an error, but the error actually have information like invalid login "401"
-				}).fail(function(exception) {
-				console.warn("there was an exception ", exception, exception.stack);
 			});
-
-			return deferred.promise;
 		}
 
 		function SetCredentials(username, password, extraInfo) {
 			// FIXME: Add Base64 encoding from Browser directly. https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/btoa
-			var authdata = Base64.encode(username + ':' + password);
+			// var authdata = Base64.encode(username + ':' + password);
+			var authdata = username + ':' + password;
 
 			$rootScope.globals = {
 				currentUser: {
