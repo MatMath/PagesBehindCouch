@@ -14,6 +14,8 @@
 		service.Login = Login;
 		service.SetCredentials = SetCredentials;
 		service.ClearCredentials = ClearCredentials;
+		service.getCouchConnection = getCouchConnection;
+		service.getMapReduceLocation = getMapReduceLocation;
 
 		return service;
 
@@ -57,6 +59,13 @@
 			$rootScope.globals = {};
 			$cookies.remove('globals');
 			$http.defaults.headers.common.Authorization = 'Basic ';
+		}
+
+		function getCouchConnection(){
+			return	'https://localhost:6984/_session';
+		}
+		function getMapReduceLocation() {
+			return 'https://localhost:6984/testuser/_design/pages/_view/'
 		}
 	}
 

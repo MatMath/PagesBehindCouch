@@ -37,14 +37,46 @@ Internal Structure:
 ------------------------------------------------
 	src/
 		components/
-			auth-login/ (router, html, controller-services-filter, js)
+			login/ (If not connected, this is the only page visible) 
+				//- flash.services (Put a Flashing even on top to notify the user of some event)  --> To delete
+				- login.controller (Login/Logout and clear even at loading)
+				- user.services (? Get  current user details, role, attribute)
+				//- user.service.local-storage (?) --> Delete
 			notification/
-			stageView/
-			tableView/
-			pageX/
+				- notification.controller ()
+				- notification.services (Fetch CouchDB mapreduce)
+			navBar/
+				- navbar.directive
+				- navbar.scss
+			stageView/  = Fetch CouchDB data, List current docs + status
+				- stageView.Controller
+			tableView/  = Fetch CouchDB data, List current docs + status
+				- tableView.Controller
+			docsView/
+				- docsView.controller 
+				- docsView.services
+				- docsView.factory
+
+			couchDB/
+				- Authentication.services (Connect to CouchDB, Login, Logout, Store user details in Cookie.)
+				- couchComm.Services (Save, MapreduceCall)
+			locale/ How to habdle translation
+
+Translation: ?
 
 ------------------------------------------------
-Target process
+Target Flow
+------------------------------------------------
+If no user already login in the system: {
+	Ask to login.
+} else {
+	User can select his user and only write the password. 
+}
+
+
+
+------------------------------------------------
+Technical Target process
 ------------------------------------------------
 Secure wrapper for internal pages.
 Split the Services and the Controller so the loadtime is faster.
