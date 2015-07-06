@@ -29,7 +29,7 @@
 						deferred.resolve(response);
 						vm.dataLoading = false;
 						AuthenticationService.SetCredentials(vm.username, vm.password, response);
-						$location.path('/');
+						$location.path('/notification');
 						// Digest because Angular do not know when the promesses is returned
 						$scope.$digest();
 					},

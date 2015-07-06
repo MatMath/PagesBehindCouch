@@ -11,3 +11,7 @@ Click will trigger a event on the other page to filter them.
 How to do that: 
 have 1 mapReduce in the CouchDB that get all the information needed for that page. 
 
+
+TODO:
+Fix the mapreduce,
+Make it pretty
