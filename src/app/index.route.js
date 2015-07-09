@@ -11,7 +11,7 @@
 		$stateProvider
 			.state('home', {
 				url: '/',
-				templateUrl: 'app/main/main.html',
+				templateUrl: 'app/components/mainDashboard/main.html',
 				controller: 'MainController',
 				controllerAs: 'mainCtrl'
 			})

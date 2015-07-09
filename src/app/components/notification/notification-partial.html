@@ -1,3 +1,6 @@
+<div>
+	<acme-navbar creationDate="mainCtrl.creationDate" />
+</div>
 <div class="container">
 	<table class="table" style="width:100%">
 		<thead>
@@ -5,28 +8,30 @@
 				<th>New</th>
 				<th>Started</th>
 				<th>Completed</th>
+				<th>pendingProcessing</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ui-sref="home">
 				<td>
-					<tag>New Inspections: {{notify.new}}</tag>
+					<tag>New Inspections: {{NotCtrl.filteredData.newForm.total}}</tag>
 				</td>
 				<td>
-					<tag ng-show="notify.started.pending">Pending: {{notify.started.pending}}</tag>
-					<tag ng-show="notify.started.pass">Passed: {{notify.started.pass}}</tag>
-					<tag ng-show="notify.started.fail">Failed: {{notify.started.fail}}</tag>
+					<tag ng-show="NotCtrl.filteredData.started.passing">Pass: {{NotCtrl.filteredData.started.passing}}</tag>
+					<tag ng-show="NotCtrl.filteredData.started.hold">Pending: {{NotCtrl.filteredData.started.hold}}</tag>
+					<tag ng-show="NotCtrl.filteredData.started.failing">Failed: {{NotCtrl.filteredData.started.failing}}</tag>
 				</td>
 				<td>
-					<tag ng-show="notify.completed.pending">Pending: {{notify.completed.pending}}</tag>
-					<tag ng-show="notify.completed.pass">Passed: {{notify.completed.pass}}</tag>
-					<tag ng-show="notify.completed.fail">Failed: {{notify.completed.fail}}</tag>
+					<tag ng-show="NotCtrl.filteredData.completed.passing">Pass: {{NotCtrl.filteredData.completed.passing}}</tag>
+					<tag ng-show="NotCtrl.filteredData.completed.hold">Pending: {{NotCtrl.filteredData.completed.hold}}</tag>
+					<tag ng-show="NotCtrl.filteredData.completed.failing">Failed: {{NotCtrl.filteredData.completed.failing}}</tag>
+				</td>
+				<td>
+					<tag ng-show="NotCtrl.filteredData.pendingProcessing.passing">Pass: {{NotCtrl.filteredData.pendingProcessing.passing}}</tag>
+					<tag ng-show="NotCtrl.filteredData.pendingProcessing.hold">Pending: {{NotCtrl.filteredData.pendingProcessing.hold}}</tag>
+					<tag ng-show="NotCtrl.filteredData.pendingProcessing.failing">Failed: {{NotCtrl.filteredData.pendingProcessing.failing}}</tag>
 				</td>
 			</tr>
 		</tbody>
 	</table>
-</div>
-<div>
-	Need Attention: 
-	<pre>{{NotCtrl.mapReduceData | json}}</pre>
 </div>

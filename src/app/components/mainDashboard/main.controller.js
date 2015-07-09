@@ -1,3 +1,4 @@
+/* global Q, console */
 (function() {
 	'use strict';
 
@@ -6,17 +7,17 @@
 		.controller('MainController', MainController);
 
 	/** @ngInject */
-	function MainController() {
+	function MainController(couchdb, $scope) {
 		//Body here
 		var vm = this;
 		vm.fetchDashboardInfo = fetchDashboardInfo;
-		vm.openInspection = openInspection;
-		vm.createBlankAssignment = createBlankAssignment;
+		// vm.openInspection = openInspection;
+		// vm.createBlankAssignment = createBlankAssignment;
 		vm.fullDashboardInfo = "";
 
 		(function initController() {
 			
-			vm.fetchDashboardInfo()
+			vm.fetchDashboardInfo();
 		})();
 
 		function fetchDashboardInfo() {
