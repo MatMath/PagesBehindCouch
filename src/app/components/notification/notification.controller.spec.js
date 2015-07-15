@@ -41,11 +41,11 @@ Spec matchers:
 
 		beforeEach(module('pagesBehindCouch'));
 
-		it('should define MainController things', inject(function($controller) {
-			var vm = $controller('MainController');
+		it('should define Notification things', inject(function($controller) {
+			var vm = $controller('NotificationController');
 
 			expect(true).toBeTruthy();
-			// expect(vm.awesomeThings.length > 5).toBeTruthy();
+			// expect(vm.filteredData.length > 5).toBeTruthy();
 		}));
 	});
 })();

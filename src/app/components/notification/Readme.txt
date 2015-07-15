@@ -13,5 +13,6 @@ have 1 mapReduce in the CouchDB that get all the information needed for that pag
 
 
 TODO:
-Fix the mapreduce,
+Create tests
 Make it pretty
+Create the link across pages.
