@@ -10,7 +10,8 @@
 	function MainController(couchdb, $scope) {
 		//Body here
 		var vm = this;
-
+		vm.setInspectionInRightCathegory = setInspectionInRightCathegory;  //Exposing the function only to be able to test it
+		vm.showTheUserADashboardRelativizedToThem = showTheUserADashboardRelativizedToThem; //Exposing the function only to be able to test it
 		vm.stagesFromTemplate = "";
 		vm.inspectionInfo = "";
 		vm.splitIntoStage = {};

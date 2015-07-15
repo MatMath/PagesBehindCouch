@@ -1,6 +1,6 @@
 /*
 ======== A Handy Little Jasmine Reference ========
-https://github.com/pivotal/jasmine/wiki/Matchers
+inspired by  https://github.com/pivotal/jasmine/wiki/Matchers
 Spec matchers:
   expect(x).toEqual(y); compares objects or primitives x and y and passes if they are equivalent
   expect(x).toBe(y); compares objects or primitives x and y and passes if they are the same object
@@ -37,15 +37,61 @@ Spec matchers:
 (function() {
 	'use strict';
 
-	describe('controllers', function() {
+	describe('Test to print out jasmine version', function() {
+		it('prints jasmine version', function() {
+			console.log('jasmine-version:' + jasmine.version);
+		});
+	});
+
+
+	describe('someFunctionHere', function() {
 
 		beforeEach(module('pagesBehindCouch'));
 
-		it('should define MainController things', inject(function($controller) {
-			var vm = $controller('MainController');
+		var $controller, vm;
 
-			expect(true).toBeTruthy();
-			// expect(vm.awesomeThings.length > 5).toBeTruthy();
+		beforeEach(inject(function(_$controller_) {
+			// The injector unwraps the underscores (_) from around the parameter names when matching
+			$controller = _$controller_;
 		}));
+
+		describe('TestinTheController', function() {
+			var $scope, controller;
+
+			beforeEach(function() {
+				$scope = {};
+				vm = $controller('MainController', {$scope: $scope });
+			});
+
+			it('Should validate that all function and Variable are there', function() {
+				// Private function cannot be tested
+				expect(vm).toBeDefined();
+				expect(vm.stagesFromTemplate).toBeDefined();
+				expect(vm.inspectionInfo).toBeDefined();
+				expect(vm.splitIntoStage).toBeDefined();
+				expect(vm.setInspectionInRightCathegory).toBeDefined();
+				expect(typeof vm.setInspectionInRightCathegory == 'function').toBeTruthy();
+			});
+
+			it('Test the function showTheUserADashboardRelativizedToThem', function() {
+				expect(vm.showTheUserADashboardRelativizedToThem).toBeDefined();
+				expect(typeof vm.showTheUserADashboardRelativizedToThem == 'function').toBeTruthy();
+			});
+
+			it('Test the function setInspectionInRightCathegory', function() {
+				expect(vm.setInspectionInRightCathegory).toBeDefined();
+				expect(typeof vm.setInspectionInRightCathegory == 'function').toBeTruthy();
+			});
+
+			it('Should receive info from CouchDB Mapreduce', function(){
+				expect(true).toBeTruthy();
+			});
+
+			it('Should display in the HTML the result of the injected mapreduce', function(){
+				expect(true).toBeTruthy();
+			});
+
+		});
 	});
+
 })();
