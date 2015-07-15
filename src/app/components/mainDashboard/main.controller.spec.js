@@ -1,3 +1,4 @@
+/* global console */
 /*
 ======== A Handy Little Jasmine Reference ========
 inspired by  https://github.com/pivotal/jasmine/wiki/Matchers
@@ -56,11 +57,13 @@ Spec matchers:
 		}));
 
 		describe('TestinTheController', function() {
-			var $scope, controller;
+			var $scope;
 
 			beforeEach(function() {
 				$scope = {};
-				vm = $controller('MainController', {$scope: $scope });
+				vm = $controller('MainController', {
+					$scope: $scope
+				});
 			});
 
 			it('Should validate that all function and Variable are there', function() {
@@ -69,25 +72,83 @@ Spec matchers:
 				expect(vm.stagesFromTemplate).toBeDefined();
 				expect(vm.inspectionInfo).toBeDefined();
 				expect(vm.splitIntoStage).toBeDefined();
-				expect(vm.setInspectionInRightCathegory).toBeDefined();
-				expect(typeof vm.setInspectionInRightCathegory == 'function').toBeTruthy();
 			});
 
 			it('Test the function showTheUserADashboardRelativizedToThem', function() {
+				var inspection = {
+					"id": "IDOfTheDocs",
+					"value": {
+						"inspectionStage_label": "Pre Shipment",
+						"id": "NotTheIDOfTheDocs",
+						"has_sku_params": true,
+						"sku_name": "Sku Name",
+						"sku_number": "Sku Number",
+						"sku_style": "Sku Style",
+						"sku_description": "Some Sku Description",
+						"sku_serial_no": "Some Serial Number",
+						"sku_date_forecasted_inspection": "Forcasted Inspection",
+						"inspection_location": "Inspection location",
+						"inspection_location_gps": "28, 125",
+						"assignment_id": "123456",
+						"assignment_date_first_retrieved": "2015-05-06",
+						"purchaseOrder_number": "654321",
+						"purchaseOrder_order_date": "2015-05-07",
+						"inspection_completed_date": "2015-05-08",
+						"sampleSize": 5,
+						"lotSize": 1600,
+						"qtyToInspect": 1500,
+						"shipped_to_location": "Shipped to Location",
+						"starred": "",
+						"actionRequired": "",
+						"status": "New",
+						"statusColor": "new",
+						"conclusion": "",
+						"conclusionColor": "",
+						"supplier": "Factory"
+					}
+				};
+				var stage = {
+					"fields_to_show_an_inspector_on_dashboard": [
+						"sku_name",
+						"Date Ordered:",
+						"purchaseOrder_order_date",
+						"lot size:",
+						"lotSize",
+						"PO:",
+						"purchaseOrder_number",
+						"Qty to Inspect:",
+						"qtyToInspect",
+						"Shipped to:",
+						"shipped_to_location",
+						"Scheduled Date:",
+						"assignment_id",
+						"status"
+					]
+				};
+				var returnedValue = vm.showTheUserADashboardRelativizedToThem(inspection, stage);
 				expect(vm.showTheUserADashboardRelativizedToThem).toBeDefined();
-				expect(typeof vm.showTheUserADashboardRelativizedToThem == 'function').toBeTruthy();
+				expect(typeof vm.showTheUserADashboardRelativizedToThem === 'function').toBeTruthy();
+				expect(returnedValue.id).toEqual("IDOfTheDocs");
+				expect(returnedValue.has_sku_params).toBeTruthy();
+				expect(returnedValue.string_to_show_user).toBeDefined();
+				expect(returnedValue.string_to_show_user).toContain("Sku Name"); 
+				expect(returnedValue.string_to_show_user).toContain(1500);  //testing the value attached
+				expect(returnedValue.string_to_show_user).toContain("Shipped to:");  //testing the name string
+				expect(returnedValue.statusColor).toEqual("new");
+				expect(returnedValue.starred).toBeDefined();
+				expect(returnedValue.actionRequired).toBeDefined();
 			});
 
 			it('Test the function setInspectionInRightCathegory', function() {
 				expect(vm.setInspectionInRightCathegory).toBeDefined();
-				expect(typeof vm.setInspectionInRightCathegory == 'function').toBeTruthy();
+				expect(typeof vm.setInspectionInRightCathegory === 'function').toBeTruthy();
 			});
 
-			it('Should receive info from CouchDB Mapreduce', function(){
+			it('Should receive info from CouchDB Mapreduce', function() {
 				expect(true).toBeTruthy();
 			});
 
-			it('Should display in the HTML the result of the injected mapreduce', function(){
+			it('Should display in the HTML the result of the injected mapreduce', function() {
 				expect(true).toBeTruthy();
 			});
 

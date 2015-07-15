@@ -1,7 +1,7 @@
 /* globals window, XDomainRequest, XMLHttpRequest, FormData, console */
-'use strict';
 var Q = Q || {
   defer: function() {
+'use strict';
     return {
       reject : function(){},
       resolve : function(){},
@@ -16,11 +16,13 @@ var CORS = {
   fieldDBtype: "CORS",
   debugMode: false, 
   debug: function(a, b, c) {
+    'use strict';
     if (this.debugMode) {
       console.log(a, b, c);
     }
   },
   warn: function(message) {
+    'use strict';
     if (this.warnMessage && this.warnMessage.indexOf("message") > -1) {
       return;
     } else {
@@ -30,9 +32,11 @@ var CORS = {
     // throw message;
   },
   bug: function(message) {
+    'use strict';
     console.warn("CORS-BUG: " + message);
   },
   render: function() {
+    'use strict';
     this.debug("Render requested but this object has no render defined.");
   }
 };
@@ -41,6 +45,7 @@ var CORS = {
  * Helper function which handles IE
  */
 CORS.supportCORSandIE = function(method, url) {
+  'use strict';
   var xhrCors;
   try {
     xhrCors = new XMLHttpRequest();
@@ -68,6 +73,7 @@ CORS.supportCORSandIE = function(method, url) {
  * Functions for well formed CORS requests
  */
 CORS.makeCORSRequest = function(options) {
+  'use strict';
   var self = this,
     deferred = Q.defer(),
     xhr;

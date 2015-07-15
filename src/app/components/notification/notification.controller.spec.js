@@ -1,6 +1,6 @@
 /*
 ======== A Handy Little Jasmine Reference ========
-https://github.com/pivotal/jasmine/wiki/Matchers
+inspired by  https://github.com/pivotal/jasmine/wiki/Matchers
 Spec matchers:
   expect(x).toEqual(y); compares objects or primitives x and y and passes if they are equivalent
   expect(x).toBe(y); compares objects or primitives x and y and passes if they are the same object
@@ -37,15 +37,48 @@ Spec matchers:
 (function() {
 	'use strict';
 
-	describe('controllers', function() {
+	describe('someFunctionHere', function() {
 
 		beforeEach(module('pagesBehindCouch'));
 
-		it('should define Notification things', inject(function($controller) {
-			var vm = $controller('NotificationController');
+		var $controller, vm;
 
-			expect(true).toBeTruthy();
-			// expect(vm.filteredData.length > 5).toBeTruthy();
+		beforeEach(inject(function(_$controller_) {
+			// The injector unwraps the underscores (_) from around the parameter names when matching
+			$controller = _$controller_;
 		}));
+
+		describe('TestinTheController', function() {
+			var $scope;
+
+			beforeEach(function() {
+				$scope = {};
+				vm = $controller('NotificationController', {
+					$scope: $scope
+				});
+			});
+
+			it('Should validate that all function and Variable are there', function() {
+				// Private function cannot be tested
+				expect(vm).toBeDefined();
+				expect(vm.mapReduceData).toBeDefined();
+				expect(vm.filteredData).toBeDefined();
+			});
+
+			it('Test the function getCouchDBDashboardInfo', function() {
+				expect(vm.getCouchDBDashboardInfo).toBeDefined();
+				expect(typeof vm.getCouchDBDashboardInfo === 'function').toBeTruthy();
+			});
+
+			it('Should receive info from CouchDB Mapreduce', function() {
+				expect(true).toBeTruthy();
+			});
+
+			it('Should display in the HTML the result of the injected mapreduce', function() {
+				expect(true).toBeTruthy();
+			});
+
+		});
 	});
+
 })();
