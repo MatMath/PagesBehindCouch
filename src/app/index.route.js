@@ -1,3 +1,4 @@
+/* global $ */
 (function() {
 	'use strict';
 
@@ -40,7 +41,7 @@
 			$http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
 		}
 
-		$rootScope.$on('$locationChangeStart', function(event, next, current) {
+		$rootScope.$on('$locationChangeStart', function() {
 			// redirect to login page if not logged in and trying to access a restricted page
 			var restrictedPage = $.inArray($location.path(), ['/login']) === -1;
 			var loggedIn = $rootScope.globals.currentUser;

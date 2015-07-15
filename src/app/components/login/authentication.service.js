@@ -1,4 +1,4 @@
-/* global Q, CORS */
+/* global CORS */
 (function() {
 	'use strict';
 
@@ -6,9 +6,9 @@
 		.module('pagesBehindCouch')
 		.factory('AuthenticationService', AuthenticationService);
 
-	AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$timeout', 'UserService'];
+	AuthenticationService.$inject = ['$http', '$cookies', '$rootScope'];
 
-	function AuthenticationService($http, $cookies, $rootScope, $timeout, UserService) {
+	function AuthenticationService($http, $cookies, $rootScope) {
 		var service = {};
 
 		service.Login = Login;
@@ -65,7 +65,7 @@
 			return	'https://localhost:6984/_session';
 		}
 		function getMapReduceLocation() {
-			return 'https://localhost:6984/testuser/_design/pages/_view/'
+			return 'https://localhost:6984/testuser/_design/pages/_view/';
 		}
 	}
 

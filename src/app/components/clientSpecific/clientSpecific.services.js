@@ -1,4 +1,3 @@
-/* global CORS */
 (function() {
 	'use strict';
 
@@ -7,7 +6,7 @@
 		.service('clientSpecific', clientSpecific);
 
 	/** @ngInject */
-	function clientSpecific(AuthenticationService) {
+	function clientSpecific() {
 		//Body here
 		var vm = this;
 		vm.blankinspectionForm = blankinspectionForm;

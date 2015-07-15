@@ -1,5 +1,5 @@
-/* globals window, XDomainRequest, XMLHttpRequest, FormData */
-
+/* globals window, XDomainRequest, XMLHttpRequest, FormData, console */
+'use strict';
 var Q = Q || {
   defer: function() {
     return {
@@ -8,7 +8,7 @@ var Q = Q || {
       promise : {
         then : function(){}
       }
-    }
+    };
   }
 };
 
@@ -139,9 +139,9 @@ CORS.makeCORSRequest = function(options) {
       self.warn("The request to " + options.url + " was unsuccesful " + xhr.statusText);
       try {
         response = JSON.parse(response);
-      } catch (e) {
-        if (e && e.message === "Unexpected token o") {
-          self.debug("response was json", e);
+      } catch (error) {
+        if (error && error.message === "Unexpected token o") {
+          self.debug("response was json", error);
         } else {
           response = {
             userFriendlyErrors: xhr.statusText,
@@ -173,8 +173,8 @@ CORS.makeCORSRequest = function(options) {
     if (response) {
       try {
         response = JSON.parse(response);
-      } catch (e) {
-        self.debug("Response was already json.", e);
+      } catch (error) {
+        self.debug("Response was already json.", error);
       }
       deferred.resolve(response);
     } else {

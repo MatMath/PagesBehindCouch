@@ -6,9 +6,9 @@
 		.module('pagesBehindCouch')
 		.controller('LoginController', LoginController);
 
-	LoginController.$inject = ['$scope', '$location', 'AuthenticationService', 'FlashService'];
+	LoginController.$inject = ['$scope', '$location', 'AuthenticationService'];
 
-	function LoginController($scope, $location, AuthenticationService, FlashService) {
+	function LoginController($scope, $location, AuthenticationService) {
 		var vm = this;
 		vm.login = login;
 		vm.logout = logout;
