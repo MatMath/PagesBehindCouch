@@ -2,13 +2,28 @@
 <div>
 	<acme-navbar creationDate="mainCtrl.creationDate" />
 </div>
-<div class="container">
 
-	<div>
-		<span ng-repeat="(key, value) in dataset">
-			<div>Images</div>
-			<div>Data</div>
-		</span>
-	</div>
+<div>
+	<table>
+		<tbody>
+			<tr>
+				<td ng-repeat="(StageID, StageArray) in mainCtrl.splitIntoStage" valign="top">
+					<div ng-hide="hideStagePictures == true">
+						<img ng-click="createNewInspectionForm(StageID[0], locale.locale_label_key)" ng-src="img/{{StageID[0].image_src}}">
+					</div>
+					<div ng-click="createNewInspectionForm(StageID[0], locale.locale_label_key)">
+						<i ng-show="blankInspectionForm"></i>{{StageArray[0].value.label.en}}
+					</div>
 
+					<div ng-repeat="(key, value) in StageArray" ng-click="viewInspection(value.id)">
+						<!-- <span ng-class="{'star_on': value.starred==1, 'star_off': value.starred!=1}">★</span> -->
+						<span ng-show="value.has_sku_params">
+							[✔]
+						</span>
+						{{value.string_to_show_user}}
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
