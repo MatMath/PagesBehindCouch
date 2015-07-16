@@ -6,14 +6,17 @@
 		.module('pagesBehindCouch')
 		.controller('LoginController', LoginController);
 
-	LoginController.$inject = ['$scope', '$location', 'AuthenticationService'];
+	LoginController.$inject = ['$scope', '$location', 'AuthenticationService', 'couchdb'];
 
-	function LoginController($scope, $location, AuthenticationService) {
+	function LoginController($scope, $location, AuthenticationService, couchdb) {
 		var vm = this;
 		vm.login = login;
 		vm.logout = logout;
+		vm.listOfUser = [];
 
 		(function initController() {
+			// At opening, fetch all user that are already login in the system (DB already downloaded in couchdb)
+				fetchAlreadyDownloadeduser();
 			// reset login status
 			// AuthenticationService.ClearCredentials();
 		})();
@@ -48,6 +51,35 @@
 		function logout() {
 			console.log("Logout");
 			AuthenticationService.ClearCredentials();
+		}
+
+		function fetchAlreadyDownloadeduser() {
+			// At opening, fetch all user that are already login in the system (DB already downloaded in couchdb)
+			
+			var deferred = Q.defer();
+			couchdb.getAllLocalDB()
+				.then(
+					function(response) {
+						deferred.resolve(response);
+						for (var i = response.length - 1; i >= 0; i--) {
+							if (response[i].indexOf('tabletbackup') > -1) {
+								// keep between the first "-" and until the last "-".
+								vm.listOfUser.push(response[i].substring(response[i].indexOf('-') + 1, response[i].lastIndexOf('-')));
+							}
+						}
+						$scope.$digest();
+					},
+					function(reason) {
+						deferred.reject(reason);
+						// Do some Aler msg
+						// vm.listOfUser = reason;
+						$scope.$digest();
+					})
+				.fail(function(exception) {
+					console.warn("there was an exception ", exception, exception.stack);
+				});
+
+			// Clean to only display the desired one.
 		}
 	}
 

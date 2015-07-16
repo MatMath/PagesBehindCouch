@@ -1,5 +1,9 @@
 <div class="col-md-6 col-md-offset-3">
-    <h2>Login</h2>
+    <span><h2>Login</h2></span>
+    <span><h3>Hello -- Name Here --</h3> 
+    <pre>{{globals | json}}</pre>
+        <button class="btn btn-primary" ng-click="logout()">Logout</button>
+    </span>
     <div ng-show="flash.message" class="alert alert-danger">{{flash.message}}</div>
     <form name="form" ng-submit="loginCtr.login()" role="form">
         <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
@@ -18,4 +22,10 @@
             <a href="#/register" class="btn btn-link">Register</a>
         </div>
     </form>
+    <!-- For all the DB that were already were downloaded by the system (localHost) -->
+    <div>User already in the system:</div>
+    <div ng-repeat="value in loginCtr.listOfUser"
+        ng-click="loginCtr.username = value">
+        (∆_∆ ---> Add FA Image) - {{value}}
+    </div>
 </div>
