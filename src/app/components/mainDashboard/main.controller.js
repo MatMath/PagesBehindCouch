@@ -7,7 +7,7 @@
 		.controller('MainController', MainController);
 
 	/** @ngInject */
-	function MainController(couchdb, $scope) {
+	function MainController(couchdb, $scope, AuthenticationService) {
 		//Body here
 		var vm = this;
 		vm.setInspectionInRightCathegory = setInspectionInRightCathegory;  //Exposing the function only to be able to test it
@@ -17,6 +17,8 @@
 		vm.splitIntoStage = {};
 
 		(function initController() {
+			// Validate if the user is still login and have access to his DB. 
+			AuthenticationService.validateWhoIsLogin();
 			getStagesFromTemplate();
 		})();
 

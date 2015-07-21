@@ -41,13 +41,18 @@
 			$http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
 		}
 
-		$rootScope.$on('$locationChangeStart', function() {
-			// redirect to login page if not logged in and trying to access a restricted page
-			var restrictedPage = $.inArray($location.path(), ['/login']) === -1;
-			var loggedIn = $rootScope.globals.currentUser;
-			if (restrictedPage && !loggedIn) {
-				$location.path('/login');
-			}
+		document.addEventListener('authentication:reAuthenticate', function(user) {
+			prompt("Please enter your password again" + user.name); // Make a cure Prompt here
+
+		});
+
+		document.addEventListener('authentication:offline', function(user) {
+			// CouchDB is not responsive
+		});
+
+		document.addEventListener('bug', function(excep) {
+			// Do Something here like send notification to the Dev Team
+			console.warn("there was an excep in:" + excep.from, excep);
 		});
 	}
 

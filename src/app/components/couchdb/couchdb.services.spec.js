@@ -36,43 +36,39 @@ Spec matchers:
 */
 
 (function() {
-	'use strict';
+  'use strict';
 
-	describe('someServicesFunctionHere', function() {
+  describe('someServicesFunction in couchDB.services', function() {
 
-		beforeEach(module('pagesBehindCouch'));
+    beforeEach(module('pagesBehindCouch'));
 
-		var $services, vm;
+    var $services, vm;
 
-		beforeEach(inject(function(_services_) {
-			// The injector unwraps the underscores (_) from around the parameter names when matching
-			$services = _services_;
-		}));
+    beforeEach(inject(function(_$services_) {
+      // The injector unwraps the underscores (_) from around the parameter names when matching
+      $services = _$services_;
+    }));
 
-		describe('TestinTheServices', function() {
-			var $scope;
+    describe('TestinTheServices', function() {
+      var $scope;
 
-			beforeEach(function() {
-				$scope = {};
-				vm = $services('couchdb', {});
-			});
+      beforeEach(function() {
+        $scope = {};
+        vm = $services('couchdb');
+      });
 
-			it('Should validate that all function and Variable are there', function() {
-				// Private function cannot be tested
-				expect(vm).toBeDefined();
-			});
 
-			it('Test the function getCouchDBInfo', function() {
-				expect(vm.getCouchDBInfo).toBeDefined();
-				expect(typeof vm.getCouchDBInfo === 'function').toBeTruthy();
-			});
+      it('Should validate that all function and Variable are there', function() {
+        // Private function cannot be tested
+        expect(vm).toBeDefined();
+      });
 
-			it('Test the function getAllDB', function() {
-				expect(vm.getAllDB).toBeDefined();
-				expect(typeof vm.getAllDB === 'function').toBeTruthy();
-			});
+      it('Test the function getCouchDBInfo', function() {
+        expect(vm.getCouchDBInfo).toBeDefined();
+        expect(typeof vm.getCouchDBInfo === 'function').toBeTruthy();
+      });
 
-		});
-	});
+    });
+  });
 
 })();

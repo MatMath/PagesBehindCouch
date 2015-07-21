@@ -11,13 +11,11 @@
 	function LoginController($scope, $location, AuthenticationService) {
 		var vm = this;
 		vm.login = login;
-		vm.logout = logout;
 		vm.listOfUser = [];
-		vm.userThatIsLogin = {};
 
 		(function initController() {
+			AuthenticationService.validateWhoIsLogin();
 			// At opening, fetch all user that are already login in the system (DB already downloaded in couchdb)
-			AuthenticationService.whoIsLogin(vm.userThatIsLogin);
 			fetchAlreadyDownloadeduser();
 			// reset login status
 			// AuthenticationService.ClearCredentials();
@@ -30,11 +28,9 @@
 			AuthenticationService.Login(vm.username, vm.password)
 				.then(
 					function(response) {
-						console.log("success", response);
 						deferred.resolve(response);
 						vm.dataLoading = false;
-						console.log(response);
-						AuthenticationService.SetCredentials(vm.username, vm.password, response);
+						AuthenticationService.SetCredentials(response);
 						$location.path('/notification');
 						// Digest because Angular do not know when the promesses is returned
 						$scope.$digest();
@@ -49,11 +45,6 @@
 				.fail(function(exception) {
 					console.warn("there was an exception ", exception, exception.stack);
 				});
-		}
-
-		function logout() {
-			console.log("Logout");
-			AuthenticationService.ClearCredentials();
 		}
 
 		function fetchAlreadyDownloadeduser() {
