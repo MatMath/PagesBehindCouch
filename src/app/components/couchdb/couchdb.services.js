@@ -12,7 +12,6 @@
 		//Body here
 		var vm = this;
 		vm.getCouchDBInfo = getCouchDBInfo;
-		vm.getAllLocalDB = getAllLocalDB;
 
 		function getCouchDBInfo(mapReduce) {
 			if (mapReduce) {
@@ -22,15 +21,6 @@
 					method: "GET"
 				});
 			}
-		}
-
-		function getAllLocalDB() {
-			var url = AuthenticationService.getBasicUrl() + '_all_dbs';
-			// this url should work on all CouchDB.
-			return CORS.makeCORSRequest({
-				url: url,
-				method: "GET"
-			});
 		}
 	}
 })();

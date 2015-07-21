@@ -6,17 +6,19 @@
 		.module('pagesBehindCouch')
 		.controller('LoginController', LoginController);
 
-	LoginController.$inject = ['$scope', '$location', 'AuthenticationService', 'couchdb'];
+	LoginController.$inject = ['$scope', '$location', 'AuthenticationService'];
 
-	function LoginController($scope, $location, AuthenticationService, couchdb) {
+	function LoginController($scope, $location, AuthenticationService) {
 		var vm = this;
 		vm.login = login;
 		vm.logout = logout;
 		vm.listOfUser = [];
+		vm.userThatIsLogin = {};
 
 		(function initController() {
 			// At opening, fetch all user that are already login in the system (DB already downloaded in couchdb)
-				fetchAlreadyDownloadeduser();
+			AuthenticationService.whoIsLogin(vm.userThatIsLogin);
+			fetchAlreadyDownloadeduser();
 			// reset login status
 			// AuthenticationService.ClearCredentials();
 		})();
@@ -31,6 +33,7 @@
 						console.log("success", response);
 						deferred.resolve(response);
 						vm.dataLoading = false;
+						console.log(response);
 						AuthenticationService.SetCredentials(vm.username, vm.password, response);
 						$location.path('/notification');
 						// Digest because Angular do not know when the promesses is returned
@@ -55,9 +58,9 @@
 
 		function fetchAlreadyDownloadeduser() {
 			// At opening, fetch all user that are already login in the system (DB already downloaded in couchdb)
-			
+
 			var deferred = Q.defer();
-			couchdb.getAllLocalDB()
+			AuthenticationService.getAllLocalDB()
 				.then(
 					function(response) {
 						deferred.resolve(response);
@@ -71,15 +74,13 @@
 					},
 					function(reason) {
 						deferred.reject(reason);
-						// Do some Aler msg
+						// Do some Alert msg
 						// vm.listOfUser = reason;
 						$scope.$digest();
 					})
 				.fail(function(exception) {
 					console.warn("there was an exception ", exception, exception.stack);
 				});
-
-			// Clean to only display the desired one.
 		}
 	}
 

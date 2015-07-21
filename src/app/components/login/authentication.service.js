@@ -14,8 +14,10 @@
 		service.Login = Login;
 		service.SetCredentials = SetCredentials;
 		service.ClearCredentials = ClearCredentials;
-		service.getCouchConnection = getCouchConnection;
 		service.getMapReduceLocation = getMapReduceLocation;
+		service.getBasicUrl = getBasicUrl;
+		service.getAllLocalDB = getAllLocalDB;
+		service.whoIsLogin = whoIsLogin;
 
 		return service;
 
@@ -61,11 +63,55 @@
 			$http.defaults.headers.common.Authorization = 'Basic ';
 		}
 
-		function getCouchConnection(){
-			return	'https://localhost:6984/_session';
+		function getBasicUrl(){
+			return	'https://localhost:6984/';
 		}
+
 		function getMapReduceLocation() {
-			return 'https://localhost:6984/testuser/_design/pages/_view/';
+			return service.getBasicUrl() + 'testuser/_design/pages/_view/';
+		}
+
+		function getAllLocalDB() {
+			var url = service.getBasicUrl() + '_all_dbs';
+			// this url should work on all CouchDB.
+			return CORS.makeCORSRequest({
+				url: url,
+				method: "GET"
+			});
+		}
+
+		function checkTheSession() {
+			var url = service.getBasicUrl() + '_session';
+			// this url should work on all CouchDB.
+			return CORS.makeCORSRequest({
+				url: url,
+				method: "GET"
+			});
+		}
+
+		function whoIsLogin(user) {
+			// At opening, fetch all user that are already login in the system (DB already downloaded in couchdb)
+
+			var deferred = Q.defer();
+				checkTheSession()
+				.then(
+					function(response) {
+						deferred.resolve(response);
+						if (!response.userCtx || !response.userCtx.name) {
+							user.name = null;
+							deferred.reject("user is not login");
+						} else {
+							user.name = response.userCtx.name;
+							deferred.resolve(response.userCtx.name);
+						}
+					},
+					function(reason) {
+						deferred.reject(reason);
+					})
+				.fail(function(exception) {
+					console.warn("there was an exception ", exception, exception.stack);
+					deferred.reject("There is a problem, please Contact us");
+				});
 		}
 	}
 
