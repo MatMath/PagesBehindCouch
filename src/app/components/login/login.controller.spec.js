@@ -38,7 +38,7 @@ Spec matchers:
 (function() {
 	'use strict';
 
-	describe('someLoginFunctionHere', function() {
+	describe('Function in login Controller', function() {
 
 		beforeEach(module('pagesBehindCouch'));
 

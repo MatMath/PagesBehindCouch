@@ -38,7 +38,7 @@ Spec matchers:
 (function() {
   'use strict';
 
-  describe('someServicesFunction in couchDB.services', function() {
+  describe('Services in couchDB.services', function() {
 
     beforeEach(module('pagesBehindCouch'));
 
@@ -54,7 +54,7 @@ Spec matchers:
 
       beforeEach(function() {
         $scope = {};
-        vm = $services('couchdb');
+        vm = $services('getCouchDBInfo');
       });
 
 

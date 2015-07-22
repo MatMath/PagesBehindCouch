@@ -1,4 +1,4 @@
-/* global Q, console */
+/* global document, Q, Event,  console */
 (function() {
 	'use strict';
 
@@ -7,20 +7,66 @@
 		.controller('MainController', MainController);
 
 	/** @ngInject */
-	function MainController(couchdb, $scope, AuthenticationService) {
+	function MainController(couchdb, $scope, $rootScope, $location, AuthenticationService) {
 		//Body here
 		var vm = this;
-		vm.setInspectionInRightCathegory = setInspectionInRightCathegory;  //Exposing the function only to be able to test it
+		vm.setInspectionInRightCathegory = setInspectionInRightCathegory; //Exposing the function only to be able to test it
 		vm.showTheUserADashboardRelativizedToThem = showTheUserADashboardRelativizedToThem; //Exposing the function only to be able to test it
+		vm.validateWhoIsLogin = validateWhoIsLogin;
 		vm.stagesFromTemplate = "";
 		vm.inspectionInfo = "";
 		vm.splitIntoStage = {};
 
 		(function initController() {
 			// Validate if the user is still login and have access to his DB. 
-			AuthenticationService.validateWhoIsLogin();
-			getStagesFromTemplate();
+			validateWhoIsLogin();
 		})();
+
+		function validateWhoIsLogin() {
+			// At opening, fetch all user that are already login in the system (DB already downloaded in couchdb)
+
+			var deferred = Q.defer();
+			AuthenticationService.checkTheSession()
+				.then(
+					function(response) {
+						deferred.resolve(response);
+						if (!response.userCtx || !response.userCtx.name) {
+							if (!$rootScope.globals.currentUser || !$rootScope.globals.currentUser.name) {
+								// User is not login and is not set in the global variable, so redirect to the login page.
+								$location.path('/login');
+								$scope.$apply();
+								return;
+							} else {
+								// Try to re-login the user with his know username. 
+								document.dispatchEvent(new Event("authentication:reAuthenticate", $rootScope.globals.currentUser.name));
+							}
+							deferred.reject("user is not login");
+						} else {
+							if ($rootScope.globals.currentUser.name !== response.userCtx.name) {
+								// User in Global var and CouchDB do not match
+								// Update the Global with the current user.
+								AuthenticationService.SetCredentials(response.userCtx);
+							} else {
+								// The user already login match CouchDB 
+							}
+							deferred.resolve(response.userCtx.name);
+							getStagesFromTemplate();
+						}
+						$scope.digest();
+					},
+					function(reason) {
+						document.dispatchEvent(new Event("authentication:offline", reason));
+						deferred.reject(reason);
+					})
+				.fail(function(exception) {
+					var ev = new Event("bug");
+					ev.from = "validateWhoIsLogin";
+					ev.exception = exception;
+
+					document.dispatchEvent(ev);
+					deferred.reject("There is a problem, please Contact us");
+				});
+		}
 
 		function getStagesFromTemplate() {
 			// All cathegory 
@@ -88,7 +134,7 @@
 				// Need to relaunch the Stage and assignment fetching function???
 				// alert("Did not find any inspection to display, try reloading");
 			}
-			
+
 			// loading = false;
 		}
 

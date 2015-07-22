@@ -1,4 +1,4 @@
-/* global $ */
+/* global document, prompt, console */
 (function() {
 	'use strict';
 
@@ -48,6 +48,7 @@
 
 		document.addEventListener('authentication:offline', function(user) {
 			// CouchDB is not responsive
+			console.log(user);
 		});
 
 		document.addEventListener('bug', function(excep) {

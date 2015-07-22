@@ -1,4 +1,4 @@
-/* global Q, console */
+/* global Q, console, Event, document */
 (function() {
 	'use strict';
 
@@ -14,12 +14,43 @@
 		vm.listOfUser = [];
 
 		(function initController() {
-			AuthenticationService.validateWhoIsLogin();
+			// Update the credential is the user is already login.
+			validateWhoIsLogin();
 			// At opening, fetch all user that are already login in the system (DB already downloaded in couchdb)
 			fetchAlreadyDownloadeduser();
 			// reset login status
 			// AuthenticationService.ClearCredentials();
 		})();
+
+		function validateWhoIsLogin() {
+			// At opening, fetch all user that are already login in the system (DB already downloaded in couchdb)
+
+			var deferred = Q.defer();
+			AuthenticationService.checkTheSession()
+				.then(
+					function(response) {
+						deferred.resolve(response);
+						if (response.userCtx) {
+							// Update the Global with the current user.
+							AuthenticationService.SetCredentials(response.userCtx);
+							deferred.resolve(response.userCtx.name);
+						}
+						$scope.digest();
+					},
+					function(reason) {
+						// error while downloading the info from CouchDB.
+						document.dispatchEvent(new Event("authentication:offline", reason));
+						deferred.reject(reason);
+					})
+				.fail(function(exception) {
+					var ev = new Event("bug");
+					ev.from = "validateWhoIsLogin";
+					ev.exception = exception;
+
+					document.dispatchEvent(ev);
+					deferred.reject("There is a problem, please Contact us");
+				});
+		}
 
 		function login() {
 			vm.dataLoading = true;

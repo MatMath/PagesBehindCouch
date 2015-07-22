@@ -1,4 +1,4 @@
-/* global document, CORS, Q, Event */
+/* global CORS */
 (function() {
 	'use strict';
 
@@ -6,9 +6,9 @@
 		.module('pagesBehindCouch')
 		.factory('AuthenticationService', AuthenticationService);
 
-	AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$location'];
+	AuthenticationService.$inject = ['$http', '$cookies', '$rootScope'];
 
-	function AuthenticationService($http, $cookies, $rootScope, $location) {
+	function AuthenticationService($http, $cookies, $rootScope) {
 		var service = {};
 
 		service.Login = Login;
@@ -18,7 +18,7 @@
 		service.getMapReduceLocation = getMapReduceLocation;
 		service.getBasicUrl = getBasicUrl;
 		service.getAllLocalDB = getAllLocalDB;
-		service.validateWhoIsLogin = validateWhoIsLogin;
+		service.checkTheSession = checkTheSession;
 
 		return service;
 
@@ -88,48 +88,6 @@
 			});
 		}
 
-		function validateWhoIsLogin() {
-			// At opening, fetch all user that are already login in the system (DB already downloaded in couchdb)
-
-			var deferred = Q.defer();
-			checkTheSession()
-				.then(
-					function(response) {
-						deferred.resolve(response);
-						if (!response.userCtx || !response.userCtx.name) {
-							if (!$rootScope.globals.currentUser || !$rootScope.globals.currentUser.name) {
-								// User is not login and is not set in the global variable, so redirect to the login page.
-								$location.path('/login'); 
-							} else {
-								// Try to re-login the user with his know username. 
-								document.dispatchEvent(new Event("authentication:reAuthenticate", $rootScope.globals.currentUser.name));
-							}
-							deferred.reject("user is not login");
-						} else {
-							if ($rootScope.globals.currentUser.name !== response.userCtx.name) {
-								// User in Global var and CouchDB do not match
-								// Update the Global with the current user.
-								service.SetCredentials(response.userCtx);
-							} else {
-								// The user already login match CouchDB 
-							}
-							deferred.resolve(response.userCtx.name);
-						}
-					},
-					function(reason) {
-						document.dispatchEvent(new Event("authentication:offline", reason));
-
-						deferred.reject(reason);
-					})
-				.fail(function(exception) {
-					var ev = new Event("bug");
-					ev.from = "validateWhoIsLogin";
-					ev.exception = exception;
-
-					document.dispatchEvent(ev);
-					deferred.reject("There is a problem, please Contact us");
-				});
-		}
 	}
 
 })();
