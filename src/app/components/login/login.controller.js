@@ -11,6 +11,7 @@
 	function LoginController($scope, $location, AuthenticationService) {
 		var vm = this;
 		vm.login = login;
+		vm.logout = logout;
 		vm.listOfUser = [];
 
 		(function initController() {
@@ -71,6 +72,28 @@
 						deferred.reject(reason);
 						vm.dataLoading = false;
 						// Digest because Angular do not know when the promesses is returned
+						$scope.$digest();
+					})
+				.fail(function(exception) {
+					console.warn("there was an exception ", exception, exception.stack);
+				});
+		}
+
+		function logout() {
+			console.log("Logout");
+			AuthenticationService.ClearCredentials();
+			
+			var deferred = Q.defer();
+			AuthenticationService.logout()
+				.then(
+					function(response) {
+						deferred.resolve(response);
+						// Already in Login page
+						$scope.$digest();
+					},
+					function(reason) {
+						deferred.reject(reason);
+						console.warn("there was an error in the Logout ", reason);
 						$scope.$digest();
 					})
 				.fail(function(exception) {
