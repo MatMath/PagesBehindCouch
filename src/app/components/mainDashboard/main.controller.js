@@ -42,7 +42,7 @@
 							}
 							deferred.reject("user is not login");
 						} else {
-							if ($rootScope.globals.currentUser.name !== response.userCtx.name) {
+							if (!$rootScope.globals.currentUser || $rootScope.globals.currentUser.name !== response.userCtx.name) {
 								// User in Global var and CouchDB do not match
 								// Update the Global with the current user.
 								AuthenticationService.SetCredentials(response.userCtx);
@@ -52,7 +52,7 @@
 							deferred.resolve(response.userCtx.name);
 							getStagesFromTemplate();
 						}
-						$scope.digest();
+						$scope.$digest();
 					},
 					function(reason) {
 						document.dispatchEvent(new Event("authentication:offline", reason));
@@ -75,7 +75,6 @@
 				.then(
 					function(response) {
 						deferred.resolve(response);
-						console.log("getStagesFromTemplate", response);
 						vm.stagesFromTemplate = response;
 						// Step 1, create all the possible stages by pushing the ID of this one on top. 
 						for (var stage = 0; stage < vm.stagesFromTemplate.rows.length; stage++) {
@@ -103,7 +102,6 @@
 				.then(
 					function(response) {
 						deferred.resolve(response);
-						console.log("getCouchDBInspectionInfo", response);
 						vm.inspectionInfo = response;
 						setInspectionInRightCathegory(vm.inspectionInfo.rows, possibleCathegory.rows);
 						$scope.$digest();

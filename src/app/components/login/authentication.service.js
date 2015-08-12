@@ -9,16 +9,17 @@
 	AuthenticationService.$inject = ['$http', '$cookies', '$rootScope'];
 
 	function AuthenticationService($http, $cookies, $rootScope) {
-		var service = {};
-
-		service.Login = Login;
-		service.logout = logout;
-		service.SetCredentials = SetCredentials;
-		service.ClearCredentials = ClearCredentials;
-		service.getMapReduceLocation = getMapReduceLocation;
-		service.getBasicUrl = getBasicUrl;
-		service.getAllLocalDB = getAllLocalDB;
-		service.checkTheSession = checkTheSession;
+		var service = {
+			'ClearCredentials': ClearCredentials,
+			'getMapReduceLocation': getMapReduceLocation,
+			'getBasicUrl': getBasicUrl,
+			'getAllLocalDB': getAllLocalDB,
+			'checkTheSession': checkTheSession,
+			'getCurrentDBname': getCurrentDBname,
+			'Login': Login,
+			'logout': logout,
+			'SetCredentials': SetCredentials,
+		};
 
 		return service;
 
@@ -50,7 +51,8 @@
 
 		function SetCredentials(extraInfo) {
 			$rootScope.globals = {
-				currentUser: extraInfo
+				currentUser: extraInfo,
+				databaseName: 'tabletbackup-'+extraInfo.name+'-localhost'
 			};
 			$cookies.put('currentUser', $rootScope.globals);
 		}
@@ -67,7 +69,7 @@
 		}
 
 		function getMapReduceLocation() {
-			return service.getBasicUrl() + 'testuser/_design/pages/_view/';
+			return service.getBasicUrl() + service.getCurrentDBname() + '/_design/pages/_view/';
 		}
 
 		function getAllLocalDB() {
@@ -86,6 +88,10 @@
 				url: url,
 				method: "GET"
 			});
+		}
+		
+		function getCurrentDBname() {
+			return $rootScope.globals.databaseName;
 		}
 
 	}

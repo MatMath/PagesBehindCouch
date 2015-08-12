@@ -62,7 +62,7 @@
 							}
 							deferred.reject("user is not login");
 						} else {
-							if ($rootScope.globals.currentUser.name !== response.userCtx.name) {
+							if (!$rootScope.globals.currentUser || $rootScope.globals.currentUser.name !== response.userCtx.name) {
 								// User in Global var and CouchDB do not match
 								// Update the Global with the current user.
 								AuthenticationService.SetCredentials(response.userCtx);
@@ -73,7 +73,7 @@
 							// Fetch latest CouchDB Data.
 							vm.getCouchDBDashboardInfo();
 						}
-						$scope.digest();
+						$scope.$digest();
 					},
 					function(reason) {
 						document.dispatchEvent(new Event("authentication:offline", reason));
@@ -95,7 +95,6 @@
 				.then(
 					function(response) {
 						deferred.resolve(response);
-						console.log("success", response);
 						vm.mapReduceData = response;
 						splitIntoCompletedLevel(response);
 						$scope.$digest();
@@ -111,7 +110,6 @@
 		}
 
 		function splitIntoCompletedLevel(response) {
-			console.log(response);
 
 			function setInProperObject(objectToAddTo) {
 				objectToAddTo.total = objectToAddTo.total + 1;

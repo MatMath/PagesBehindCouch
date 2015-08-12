@@ -36,7 +36,7 @@
 							AuthenticationService.SetCredentials(response.userCtx);
 							deferred.resolve(response.userCtx.name);
 						}
-						$scope.digest();
+						$scope.$digest();
 					},
 					function(reason) {
 						// error while downloading the info from CouchDB.
