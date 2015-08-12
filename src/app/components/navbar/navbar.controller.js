@@ -22,16 +22,16 @@
 
 		function logout() {
 			console.log("Logout");
-			AuthenticationService.ClearCredentials();
 			
 			var deferred = Q.defer();
 			AuthenticationService.logout()
 				.then(
 					function(response) {
 						deferred.resolve(response);
+						AuthenticationService.ClearCredentials();
 						$location.path('/login');
 						// Digest because Angular do not know when the promesses is returned
-						$scope.$digest();
+						$scope.$apply();
 					},
 					function(reason) {
 						deferred.reject(reason);
