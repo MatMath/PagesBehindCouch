@@ -1,0 +1,20 @@
+{
+	"home": "CN_Home",
+	"hello": "CN_Hello",
+	"username": "CN_Username",
+	"username_require": "CN_Username is required",
+	"password": "CN_Password",
+	"password_require": "CN_Password is required",
+	"login": "CN_Login",
+	"known_user": "CN_User already in the system",
+	"logout": "CN_Logout",
+	"notification": "CN_Notification",
+	"new": "CN_New",
+	"started": "CN_Started",
+	"completed": "CN_Completed",
+	"pending_processing": "CN_Pending Processing",
+	"new_inspections": "CN_New Inspections",
+	"pass": "CN_Pass",
+	"pending": "CN_Pending",
+	"failed": "CN_Failed"
+}

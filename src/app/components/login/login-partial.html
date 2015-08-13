@@ -1,27 +1,27 @@
 <div class="col-md-6 col-md-offset-3">
-    <span><h2>Login</h2></span>
-    <span><h3>Hello {{loginCtr.userThatIsLogin.name}}</h3> 
+    <span><h2>{{'login' | translate}}</h2></span>
+    <span><h3>{{'hello' | translate}} {{loginCtr.userThatIsLogin.name}}</h3> 
     </span>
     <div ng-show="flash.message" class="alert alert-danger">{{flash.message}}</div>
     <form name="form" ng-submit="loginCtr.login()" role="form">
         <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
-            <label for="username">Username</label>
+            <label for="username">{{'username' | translate}}</label>
             <input type="text" name="username" id="username" class="form-control" ng-model="loginCtr.username" required />
-            <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+            <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">{{'username_require' | translate}}</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-            <label for="password">Password</label>
+            <label for="password">{{'password' | translate}}</label>
             <input type="password" name="password" id="password" class="form-control" ng-model="loginCtr.password" required />
-            <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+            <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">{{'password_require' | translate}}</span>
         </div>
         <div class="form-actions">
-            <button type="submit" ng-disabled="form.$invalid || loginCtr.dataLoading" class="btn btn-primary">Login</button>
+            <button type="submit" ng-disabled="form.$invalid || loginCtr.dataLoading" class="btn btn-primary">{{'login' | translate}}</button>
             <img ng-if="loginCtr.dataLoading" src="/favicon.ico" />
-            <a href="#/register" class="btn btn-link">Register</a>
+            <a href="#/register" class="btn btn-link">{{'register' | translate}}</a>
         </div>
     </form>
     <!-- For all the DB that were already were downloaded by the system (localHost) -->
-    <div>User already in the system:</div>
+    <div>{{'known_user' | translate}}:</div>
     <div ng-repeat="value in loginCtr.listOfUser"
         ng-click="loginCtr.username = value">
         <i class="fa fa-user"></i> - {{value}}

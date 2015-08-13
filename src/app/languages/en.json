@@ -1,4 +1,20 @@
 {
-	"TITLE": "Hello",
-	"home": "Home"
+	"home": "Home",
+	"hello": "Hello",
+	"username": "Username",
+	"username_require": "Username is required",
+	"password": "Password",
+	"password_require": "Password is required",
+	"login": "Login",
+	"known_user": "User already in the system",
+	"logout": "Logout",
+	"notification": "Notification",
+	"new": "New",
+	"started": "Started",
+	"completed": "Completed",
+	"pending_processing": "Pending Processing",
+	"new_inspections": "New Inspections",
+	"pass": "Pass",
+	"pending": "Pending",
+	"failed": "Failed"
 }

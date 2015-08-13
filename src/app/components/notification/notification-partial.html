@@ -5,31 +5,31 @@
 	<table class="table" style="width:100%">
 		<thead>
 			<tr>
-				<th>New</th>
-				<th>Started</th>
-				<th>Completed</th>
-				<th>pendingProcessing</th>
+				<th>{{'new' | translate}}</th>
+				<th>{{'started' | translate}}</th>
+				<th>{{'completed' | translate}}</th>
+				<th>{{'pending_processing' | translate}}</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ui-sref="home">
 				<td>
-					<tag>New Inspections: {{NotCtrl.filteredData.newForm.total}}</tag>
+					<tag>{{'new_inspections' | translate}}: {{NotCtrl.filteredData.newForm.total}}</tag>
 				</td>
 				<td>
-					<tag ng-show="NotCtrl.filteredData.started.passing">Pass: {{NotCtrl.filteredData.started.passing}}</tag>
-					<tag ng-show="NotCtrl.filteredData.started.hold">Pending: {{NotCtrl.filteredData.started.hold}}</tag>
-					<tag ng-show="NotCtrl.filteredData.started.failing">Failed: {{NotCtrl.filteredData.started.failing}}</tag>
+					<tag ng-show="NotCtrl.filteredData.started.passing">{{'pass' | translate}}: {{NotCtrl.filteredData.started.passing}}</tag>
+					<tag ng-show="NotCtrl.filteredData.started.hold">{{'pending' | translate}}: {{NotCtrl.filteredData.started.hold}}</tag>
+					<tag ng-show="NotCtrl.filteredData.started.failing">{{'failed' | translate}}: {{NotCtrl.filteredData.started.failing}}</tag>
 				</td>
 				<td>
-					<tag ng-show="NotCtrl.filteredData.completed.passing">Pass: {{NotCtrl.filteredData.completed.passing}}</tag>
-					<tag ng-show="NotCtrl.filteredData.completed.hold">Pending: {{NotCtrl.filteredData.completed.hold}}</tag>
-					<tag ng-show="NotCtrl.filteredData.completed.failing">Failed: {{NotCtrl.filteredData.completed.failing}}</tag>
+					<tag ng-show="NotCtrl.filteredData.completed.passing">{{'pass' | translate}}: {{NotCtrl.filteredData.completed.passing}}</tag>
+					<tag ng-show="NotCtrl.filteredData.completed.hold">{{'pending' | translate}}: {{NotCtrl.filteredData.completed.hold}}</tag>
+					<tag ng-show="NotCtrl.filteredData.completed.failing">{{'failed' | translate}}: {{NotCtrl.filteredData.completed.failing}}</tag>
 				</td>
 				<td>
-					<tag ng-show="NotCtrl.filteredData.pendingProcessing.passing">Pass: {{NotCtrl.filteredData.pendingProcessing.passing}}</tag>
-					<tag ng-show="NotCtrl.filteredData.pendingProcessing.hold">Pending: {{NotCtrl.filteredData.pendingProcessing.hold}}</tag>
-					<tag ng-show="NotCtrl.filteredData.pendingProcessing.failing">Failed: {{NotCtrl.filteredData.pendingProcessing.failing}}</tag>
+					<tag ng-show="NotCtrl.filteredData.pendingProcessing.passing">{{'pass' | translate}}: {{NotCtrl.filteredData.pendingProcessing.passing}}</tag>
+					<tag ng-show="NotCtrl.filteredData.pendingProcessing.hold">{{'pending' | translate}}: {{NotCtrl.filteredData.pendingProcessing.hold}}</tag>
+					<tag ng-show="NotCtrl.filteredData.pendingProcessing.failing">{{'failed' | translate}}: {{NotCtrl.filteredData.pendingProcessing.failing}}</tag>
 				</td>
 			</tr>
 		</tbody>

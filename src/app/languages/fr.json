@@ -1,4 +1,20 @@
 {
-	"TITLE": "Allo",
-	"home": "Maison"
+	"home": "FR_Home",
+	"hello": "FR_Hello",
+	"username": "FR_Username",
+	"username_require": "FR_Username is required",
+	"password": "FR_Password",
+	"password_require": "FR_Password is required",
+	"login": "FR_Login",
+	"known_user": "FR_User already in the system",
+	"logout": "FR_Logout",
+	"notification": "FR_Notification",
+	"new": "FR_New",
+	"started": "FR_Started",
+	"completed": "FR_Completed",
+	"pending_processing": "FR_Pending Processing",
+	"new_inspections": "FR_New Inspections",
+	"pass": "FR_Pass",
+	"pending": "FR_Pending",
+	"failed": "FR_Failed"
 }
