@@ -8,9 +8,10 @@
 		.controller('NavbarController', NavbarController);
 
 	/** @ngInject */
-	function NavbarController($scope, $rootScope, $location, AuthenticationService) {
+	function NavbarController($scope, $rootScope, $location, AuthenticationService, $translate) {
 		var vm = this;
 		vm.logout = logout;
+		vm.changeLanguage = changeLanguage;
 		vm.currentUserName = "";
 
 		if ($rootScope.globals && $rootScope.globals.currentUser && $rootScope.globals.currentUser.name) {
@@ -41,6 +42,11 @@
 				.fail(function(exception) {
 					console.warn("there was an exception ", exception, exception.stack);
 				});
+		}
+
+		function changeLanguage (key) {
+			console.log('language changed to ' + key);
+		    $translate.use(key);
 		}
 	}
 
