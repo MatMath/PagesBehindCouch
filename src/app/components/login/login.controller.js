@@ -6,9 +6,8 @@
 		.module('pagesBehindCouch')
 		.controller('LoginController', LoginController);
 
-	LoginController.$inject = ['$scope', '$location', 'AuthenticationService'];
-
-	function LoginController($scope, $location, AuthenticationService) {
+	/** @ngInject */
+	function LoginController($scope, $location, AuthenticationService, $translate, couchdb) {
 		var vm = this;
 		vm.login = login;
 		vm.logout = logout;
@@ -63,6 +62,33 @@
 						deferred.resolve(response);
 						vm.dataLoading = false;
 						AuthenticationService.SetCredentials(response);
+						// Get the Preferences from the CouchDB of the user only if the login did work.
+						var deferred2 = Q.defer();
+						couchdb.getUserPreferences()
+							.then(
+								function(response) {
+									deferred2.resolve(response);
+									AuthenticationService.updateUserPreferences(response);
+									changeLanguage(response.lang);
+								},
+								function(reason) {
+									deferred2.reject(reason);
+									if (reason.error === "not_found") {
+										// Preferences are missing, so Write new one.
+										var genericPreferences = {
+											"_id": "user_preferences",
+											"lang": "en"
+										};
+										AuthenticationService.updateUserPreferences(genericPreferences);
+										couchdb.updateUserPreferences(genericPreferences);
+									}
+									vm.dataLoading = false;
+									// Digest because Angular do not know when the promesses is returned
+									$scope.$digest();
+								})
+							.fail(function(exception) {
+								console.warn("there was an exception ", exception, exception.stack);
+							});
 						$location.path('/notification');
 						// Digest because Angular do not know when the promesses is returned
 						$scope.$digest();
@@ -82,7 +108,7 @@
 		function logout() {
 			console.log("Logout");
 			AuthenticationService.ClearCredentials();
-			
+
 			var deferred = Q.defer();
 			AuthenticationService.logout()
 				.then(
@@ -126,6 +152,11 @@
 				.fail(function(exception) {
 					console.warn("there was an exception ", exception, exception.stack);
 				});
+		}
+
+		function changeLanguage(key) {
+			console.log('language changed to ' + key);
+			$translate.use(key);
 		}
 	}
 

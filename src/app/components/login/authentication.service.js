@@ -19,6 +19,8 @@
 			'Login': Login,
 			'logout': logout,
 			'SetCredentials': SetCredentials,
+			'getUserPreferencesLocation': getUserPreferencesLocation,
+			'updateUserPreferences': updateUserPreferences
 		};
 
 		return service;
@@ -50,6 +52,7 @@
 		}
 
 		function SetCredentials(extraInfo) {
+			// This is the Data that is inside the session return value. 
 			$rootScope.globals = {
 				currentUser: extraInfo,
 				databaseName: 'tabletbackup-'+extraInfo.name+'-localhost'
@@ -72,6 +75,10 @@
 			return service.getBasicUrl() + service.getCurrentDBname() + '/_design/pages/_view/';
 		}
 
+		function getUserPreferencesLocation() {
+			return service.getBasicUrl() + service.getCurrentDBname() + '/user_preferences/';
+		}
+
 		function getAllLocalDB() {
 			var url = service.getBasicUrl() + '_all_dbs';
 			// this url should work on all CouchDB.
@@ -92,6 +99,12 @@
 		
 		function getCurrentDBname() {
 			return $rootScope.globals.databaseName;
+		}
+
+		function updateUserPreferences(preferences) {
+			if (preferences) {
+				$rootScope.userPreferences = preferences;
+			}
 		}
 
 	}

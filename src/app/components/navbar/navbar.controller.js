@@ -8,7 +8,7 @@
 		.controller('NavbarController', NavbarController);
 
 	/** @ngInject */
-	function NavbarController($scope, $rootScope, $location, AuthenticationService, $translate) {
+	function NavbarController($scope, $rootScope, $location, AuthenticationService, $translate, couchdb) {
 		var vm = this;
 		vm.logout = logout;
 		vm.changeLanguage = changeLanguage;
@@ -23,7 +23,7 @@
 
 		function logout() {
 			console.log("Logout");
-			
+
 			var deferred = Q.defer();
 			AuthenticationService.logout()
 				.then(
@@ -44,9 +44,37 @@
 				});
 		}
 
-		function changeLanguage (key) {
+		function changeLanguage(key) {
 			console.log('language changed to ' + key);
-		    $translate.use(key);
+			$translate.use(key);
+			updateUserNewLangPreference(key);
+		}
+
+		function updateUserNewLangPreference(key) {
+			var deferred2 = Q.defer();
+			couchdb.getUserPreferences()
+				.then(
+					function(response) {
+						deferred2.resolve(response);
+						response.lang = key;
+						AuthenticationService.updateUserPreferences(response);
+						couchdb.updateUserPreferences(response);
+					},
+					function(reason) {
+						deferred2.reject(reason);
+						if (reason.error === "not_found") {
+							// Preferences are missing, so Write new one.
+							var genericPreferences = {
+								"_id": "user_preferences",
+								"lang": key
+							};
+							AuthenticationService.updateUserPreferences(genericPreferences);
+							couchdb.updateUserPreferences(genericPreferences);
+						}
+					})
+				.fail(function(exception) {
+					console.warn("there was an exception ", exception, exception.stack);
+				});
 		}
 	}
 
