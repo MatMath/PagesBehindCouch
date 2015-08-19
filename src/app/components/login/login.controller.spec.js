@@ -1,4 +1,3 @@
-
 /*
 ======== A Handy Little Jasmine Reference ========
 inspired by  https://github.com/pivotal/jasmine/wiki/Matchers
@@ -34,30 +33,66 @@ Spec matchers:
     });
   });
 */
+// Inspiration from: http://www.sitepoint.com/unit-testing-angularjs-services-controllers-providers/
 
 (function() {
 	'use strict';
 
 	describe('Function in login Controller', function() {
+		var vm, mockAuthService, rootScope, scope, passPromise;
 
-		beforeEach(module('pagesBehindCouch'));
+		beforeEach(function() {
+			module(function($provide) {
+				$provide.factory('AuthenticationService', ['$q',
+					function($q) {
+						function checkTheSession() {
+							if (passPromise) {
+								return $q.when();
+							} else {
+								return $q.reject();
+							}
+						}
 
-		var $controller, vm;
+						function Login() {
+							var response = {
+								status: true
+							};
+							var reject = {
+								status: false
+							};
+							if (passPromise) {
+								return $q.when(response);
+							} else {
+								return $q.reject(reject);
+							}
+						}
 
-		beforeEach(inject(function(_$controller_) {
-			// The injector unwraps the underscores (_) from around the parameter names when matching
-			$controller = _$controller_;
+						return {
+							checkTheSession: checkTheSession,
+							Login: Login
+						};
+					}
+				]);
+			});
+
+			module('pagesBehindCouch');
+		});
+
+		beforeEach(inject(function($rootScope, $controller, AuthenticationService) {
+			rootScope = $rootScope;
+			scope = $rootScope.$new();
+			mockAuthService = AuthenticationService;
+			spyOn(mockAuthService, 'checkTheSession').and.callThrough();
+			spyOn(mockAuthService, 'Login').and.callThrough();
 		}));
 
 		describe('TestinTheController', function() {
-			var $scope;
-
-			beforeEach(function() {
-				$scope = {};
+			beforeEach(inject(function($controller) {
 				vm = $controller('LoginController', {
-					$scope: $scope
+					$scope: scope,
+					AuthenticationService: mockAuthService
 				});
-			});
+			}));
 
 			it('Should validate that all function and Variable are there', function() {
 				// Private function cannot be tested
@@ -66,8 +101,15 @@ Spec matchers:
 			});
 
 			it('Test the function login', function() {
+				passPromise = true;
+				vm.login();
+
 				expect(vm.login).toBeDefined();
 				expect(typeof vm.login === 'function').toBeTruthy();
+				expect(mockAuthService.Login).toBeDefined();
+				expect(mockAuthService.Login).toHaveBeenCalled();
+				// expect(vm.dataLoading).toBeFalsy();
+				// expect(mockAuthService.SetCredentials).toHaveBeenCalled();
 			});
 
 			it('Test the function logout', function() {

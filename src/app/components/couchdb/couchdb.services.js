@@ -40,7 +40,7 @@
 					method: "PUT",
 					data: preferences
 				});
-			};
+			}
 		}
 	}
 })();
