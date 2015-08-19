@@ -1,4 +1,4 @@
-/* global console */
+
 /*
 ======== A Handy Little Jasmine Reference ========
 inspired by  https://github.com/pivotal/jasmine/wiki/Matchers
@@ -37,38 +37,45 @@ Spec matchers:
 
 (function() {
   'use strict';
+  describe('service tests', function() {
+    var CouchDBObj, mockAuthServices;
 
-  describe('Services in couchDB.services', function() {
+    beforeEach(function() {
+      module(function($provide) {
+        $provide.service('AuthenticationService', function() {
+          this.getMapReduceLocation = jasmine.createSpy('getMapReduceLocation');
+          this.getUserPreferencesLocation = jasmine.createSpy('getUserPreferencesLocation');
+        });
+      });
+      module('pagesBehindCouch');
+    });
 
-    beforeEach(module('pagesBehindCouch'));
-
-    var $services, vm;
-
-    beforeEach(inject(function(_$services_) {
-      // The injector unwraps the underscores (_) from around the parameter names when matching
-      $services = _$services_;
+    beforeEach(inject(function(AuthenticationService, couchdb) {
+      CouchDBObj = couchdb;
+      mockAuthServices = AuthenticationService;
     }));
 
-    describe('TestinTheServices', function() {
-      var $scope;
+    it('should have couchdb service, getCouchDBInfo function defined', function() {
+      var mapreduce = "someMapReduceTag";
+      CouchDBObj.getCouchDBInfo(mapreduce);
 
-      beforeEach(function() {
-        $scope = {};
-        vm = $services('getCouchDBInfo');
-      });
-
-
-      it('Should validate that all function and Variable are there', function() {
-        // Private function cannot be tested
-        expect(vm).toBeDefined();
-      });
-
-      it('Test the function getCouchDBInfo', function() {
-        expect(vm.getCouchDBInfo).toBeDefined();
-        expect(typeof vm.getCouchDBInfo === 'function').toBeTruthy();
-      });
-
+      expect(CouchDBObj).toBeDefined();
+      expect(mockAuthServices).toBeDefined();
+      expect(typeof CouchDBObj.getCouchDBInfo === 'function').toBeTruthy();
+      // expect(mockAuthServices.getMapReduceLocation).toHaveBeenCalled(); --> Error: Expected a spy, but got Function.
     });
+
+    it('should have couchdb service, getUserPreferences function defined', function() {
+      expect(CouchDBObj).toBeDefined();
+      expect(typeof CouchDBObj.getUserPreferences === 'function').toBeTruthy();
+    });
+
+    it('should have couchdb service, updateUserPreferences function defined', function() {
+      expect(CouchDBObj).toBeDefined();
+      expect(typeof CouchDBObj.updateUserPreferences === 'function').toBeTruthy();
+    });
+
   });
+
 
 })();

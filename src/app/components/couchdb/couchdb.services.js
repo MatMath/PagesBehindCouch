@@ -6,7 +6,6 @@
 		.module('pagesBehindCouch')
 		.service('couchdb', couchdb);
 
-	couchdb.$inject = ['AuthenticationService'];
 	/** @ngInject */
 	function couchdb(AuthenticationService) {
 		//Body here

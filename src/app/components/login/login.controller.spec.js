@@ -1,4 +1,4 @@
-/* global console */
+
 /*
 ======== A Handy Little Jasmine Reference ========
 inspired by  https://github.com/pivotal/jasmine/wiki/Matchers
@@ -73,12 +73,6 @@ Spec matchers:
 			it('Test the function logout', function() {
 				expect(vm.logout).toBeDefined();
 				expect(typeof vm.logout === 'function').toBeTruthy();
-			});
-
-			xit('Test the function fetchAlreadyDownloadeduser', function() {
-				// Not expose to the outside so far...
-				expect(vm.fetchAlreadyDownloadeduser).toBeDefined();
-				expect(typeof vm.fetchAlreadyDownloadeduser === 'function').toBeTruthy();
 			});
 
 			it('Should have 3 user when we have 3 Database in CouchDB at Login', function() {
