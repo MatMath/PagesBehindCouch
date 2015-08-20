@@ -16,5 +16,7 @@
 	"new_inspections": "FR_New Inspections",
 	"pass": "FR_Pass",
 	"pending": "FR_Pending",
-	"failed": "FR_Failed"
+	"failed": "FR_Failed",
+	"docview":"Vue du Document",
+	"headerTitle":"Entête"
 }

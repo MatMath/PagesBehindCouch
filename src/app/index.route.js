@@ -27,6 +27,12 @@
 				templateUrl: 'app/components/notification/notification-partial.html',
 				controller: 'NotificationController',
 				controllerAs: 'NotCtrl'
+			})
+			.state('docview', {
+				url: '/docview',
+				templateUrl: 'app/components/docview/docview-partial.html',
+				controller: 'DocviewController',
+				controllerAs: 'docviewCtrl'
 			});
 
 		$urlRouterProvider.otherwise('/');

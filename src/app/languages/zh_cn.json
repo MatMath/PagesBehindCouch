@@ -16,5 +16,6 @@
 	"new_inspections": "CN_New Inspections",
 	"pass": "CN_Pass",
 	"pending": "CN_Pending",
-	"failed": "CN_Failed"
+	"failed": "CN_Failed",
+	"headerTitle":"Title of the docs"
 }

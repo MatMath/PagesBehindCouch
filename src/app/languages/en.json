@@ -16,5 +16,7 @@
 	"new_inspections": "New Inspections",
 	"pass": "Pass",
 	"pending": "Pending",
-	"failed": "Failed"
+	"failed": "Failed",
+	"docview":"Document View",
+	"headerTitle":"Title of the docs"
 }
