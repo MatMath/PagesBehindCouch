@@ -29,7 +29,7 @@
 				controllerAs: 'NotCtrl'
 			})
 			.state('docview', {
-				url: '/docview',
+				url: '/docview/:uuid',
 				templateUrl: 'app/components/docview/docview-partial.html',
 				controller: 'DocviewController',
 				controllerAs: 'docviewCtrl'

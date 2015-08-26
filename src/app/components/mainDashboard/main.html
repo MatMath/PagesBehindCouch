@@ -1,6 +1,6 @@
 
 <div>
-	<acme-navbar creationDate="mainCtrl.creationDate" />
+	<acme-navbar />
 </div>
 
 <div>
@@ -15,7 +15,7 @@
 						<i ng-show="blankInspectionForm"></i>{{StageArray[0].value.label.en}}
 					</div>
 
-					<div ng-repeat="(key, value) in StageArray" ng-click="viewInspection(value.id)">
+					<div ng-repeat="(key, value) in StageArray" ng-click="mainCtrl.openThatDoc(value.id)">
 						<!-- <span ng-class="{'star_on': value.starred==1, 'star_off': value.starred!=1}">★</span> -->
 						<span ng-show="value.has_sku_params">
 							[✔]

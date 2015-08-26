@@ -13,6 +13,7 @@
 		vm.setInspectionInRightCathegory = setInspectionInRightCathegory; //Exposing the function only to be able to test it
 		vm.showTheUserADashboardRelativizedToThem = showTheUserADashboardRelativizedToThem; //Exposing the function only to be able to test it
 		vm.validateWhoIsLogin = validateWhoIsLogin;
+		vm.openThatDoc = openThatDoc;
 		vm.stagesFromTemplate = "";
 		vm.inspectionInfo = "";
 		vm.splitIntoStage = {};
@@ -193,6 +194,15 @@
 				"starred": inspection.value.starred,
 				"actionRequired": inspection.value.actionRequired
 			};
+		}
+
+		function openThatDoc (UUID) {
+			// Middle step Instead of opening the page directly in case we want to validate something before opening the Doc.
+			if (!UUID) {
+				return;
+			}
+			// Redirect the user to the DocView + That page should open + display that doc.
+			$location.path('/docview/'+ UUID);
 		}
 
 	}

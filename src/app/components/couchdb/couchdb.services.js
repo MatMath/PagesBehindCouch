@@ -13,6 +13,7 @@
 		vm.getCouchDBInfo = getCouchDBInfo;
 		vm.getUserPreferences = getUserPreferences;
 		vm.updateUserPreferences = updateUserPreferences;
+		vm.getDocData = getDocData;
 
 		function getCouchDBInfo(mapReduce) {
 			if (mapReduce) {
@@ -42,5 +43,14 @@
 				});
 			}
 		}
+
+		function getDocData(UUID) {
+			var url = AuthenticationService.getBasicUrl() + AuthenticationService.getCurrentDBname() + '/'+UUID;
+			return CORS.makeCORSRequest({
+				url: url,
+				method: "GET"
+			});
+		}
+
 	}
 })();
