@@ -8,15 +8,18 @@
 
 var gulp = require('gulp');
 var wrench = require('wrench');
+var concat = require('gulp-concat')
+var uglify = require('gulp-uglify')
+var ngAnnotate = require('gulp-ng-annotate')
 
 /**
  *  This will load all js or coffee files in the gulp directory
  *  in order to load all gulp tasks
  */
 wrench.readdirSyncRecursive('./gulp').filter(function(file) {
-  return (/\.(js|coffee)$/i).test(file);
+	return (/\.(js|coffee)$/i).test(file);
 }).map(function(file) {
-  require('./gulp/' + file);
+	require('./gulp/' + file);
 });
 
 
@@ -24,6 +27,14 @@ wrench.readdirSyncRecursive('./gulp').filter(function(file) {
  *  Default task clean temporaries directories and launch the
  *  main optimization build task
  */
-gulp.task('default', ['clean'], function () {
-  gulp.start('build');
+gulp.task('default', ['clean'], function() {
+	gulp.start('build');
 });
+
+gulp.task('min', function() {
+	gulp.src(['src/**/module.js', 'src/**/*.js'])
+		.pipe(concat('app.js'))
+		.pipe(ngAnnotate())
+		.pipe(uglify())
+		.pipe(gulp.dest('.'))
+})
