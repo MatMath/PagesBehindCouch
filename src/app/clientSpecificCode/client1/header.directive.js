@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('pagesBehindCouch')
+		.module('client1')
 		.directive('headerView', headerView);
 
 	/** @ngInject */

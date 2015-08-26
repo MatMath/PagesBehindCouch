@@ -1,8 +1,9 @@
+/* global alert */
 (function() {
 	'use strict';
-
+	// If client X need extra dependency to be injected inside it, we need to have them already injected in the main index.module
 	angular
-		.module('pagesBehindCouch')
+		.module('client3', [])
 		.controller('HeaderController', HeaderController);
 
 	/** @ngInject */
@@ -11,10 +12,10 @@
 		var vm = this;
 		vm.clickEvent = clickEvent;
 
-		function clickEvent () {
+		function clickEvent() {
 			// body...
 			alert("This is Client 3 Controller");
 		}
-		
+
 	}
 })();
