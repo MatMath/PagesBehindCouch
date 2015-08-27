@@ -3,7 +3,7 @@
 	'use strict';
 	// If client X need extra dependency to be injected inside it, we need to have them already injected in the main index.module
 	angular
-		.module('client2', [])
+		.module('client', [])
 		.controller('HeaderController', HeaderController);
 
 	/** @ngInject */
@@ -14,7 +14,7 @@
 
 		function clickEvent() {
 			// body...
-			alert("This is Client 2 Controller");
+			alert("This is Client 3 Controller");
 		}
 
 	}

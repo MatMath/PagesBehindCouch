@@ -1,3 +1,4 @@
+/* global require */
 /**
  *  Welcome to your gulpfile!
  *  The gulp tasks are splitted in several files in the gulp directory
@@ -8,9 +9,11 @@
 
 var gulp = require('gulp');
 var wrench = require('wrench');
-var concat = require('gulp-concat')
-var uglify = require('gulp-uglify')
-var ngAnnotate = require('gulp-ng-annotate')
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var ngAnnotate = require('gulp-ng-annotate');
+var del = require('del');
+var argv = require('yargs').argv;
 
 /**
  *  This will load all js or coffee files in the gulp directory
@@ -36,5 +39,12 @@ gulp.task('min', function() {
 		.pipe(concat('app.js'))
 		.pipe(ngAnnotate())
 		.pipe(uglify())
-		.pipe(gulp.dest('.'))
-})
+		.pipe(gulp.dest('.'));
+});
+
+gulp.task('buildClient', function() {
+	var clientLocation = 'clientSpecificCode/'+argv.client+'/**'
+	del(['src/app/currentClient']);
+	gulp.src([clientLocation])
+		.pipe(gulp.dest('src/app/currentClient'));
+});
