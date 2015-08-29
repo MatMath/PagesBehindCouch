@@ -3,10 +3,10 @@
 
 	angular
 		.module('pagesBehindCouch')
-		.directive('acmeNavbar', acmeNavbar);
+		.directive('globalNavbar', globalNavbar);
 
 	/** @ngInject */
-	function acmeNavbar() {
+	function globalNavbar() {
 		var directive = {
 			restrict: 'E',
 			templateUrl: 'app/components/navbar/navbar.html',

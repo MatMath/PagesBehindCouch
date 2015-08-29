@@ -1,0 +1,12 @@
+<nav class="navbar navbar-static-top navbar-inverse">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a ui-sref="home">{{'home' | translate}}</a></li>
+      </ul>
+	  <img src="app/img/icon-us.png" ng-click="docNavbarCtrl.changeLanguage('en')">
+	  <img src="app/img/icon-french.png" ng-click="docNavbarCtrl.changeLanguage('fr')">
+	  <img src="app/img/icon-china.png" ng-click="docNavbarCtrl.changeLanguage('zh_cn')">
+    </div>
+  </div>
+</nav>
