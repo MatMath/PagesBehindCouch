@@ -42,6 +42,7 @@ gulp.task('min', function() {
 		.pipe(gulp.dest('.'));
 });
 
+// exposed: gulp buildClient --client=client1
 gulp.task('buildClient', function() {
 	var clientLocation = 'clientSpecificCode/'+argv.client+'/**'
 	del(['src/app/currentClient']);
