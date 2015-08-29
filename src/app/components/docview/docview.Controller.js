@@ -16,12 +16,10 @@
 			// Validate if the user is still login and have access to his DB. 
 			validateWhoIsLogin();
 			// the doc opening should be blocked by the login check.
-			openTheDocUUID($stateParams.uuid);
 		})();
 
 		function validateWhoIsLogin() {
 			// At opening, fetch all user that are already login in the system (DB already downloaded in couchdb)
-
 			var deferred = Q.defer();
 			AuthenticationService.checkTheSession()
 				.then(
@@ -36,6 +34,8 @@
 							} else {
 								// Try to re-login the user with his know username. 
 								document.dispatchEvent(new Event("authentication:reAuthenticate", $rootScope.globals.currentUser.name));
+								// the doc opening should be blocked by the login check.
+								openTheDocUUID($stateParams.uuid);
 							}
 							deferred.reject("user is not login");
 						} else {
@@ -47,8 +47,8 @@
 								// The user already login match CouchDB
 							}
 							deferred.resolve(response.userCtx.name);
-							// Fetch latest CouchDB Data.
-							vm.getCouchDBDashboardInfo();
+							// the doc opening should be blocked by the login check.
+							openTheDocUUID($stateParams.uuid);
 						}
 						$scope.$digest();
 					},
