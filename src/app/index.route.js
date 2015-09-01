@@ -39,6 +39,12 @@
 				templateUrl: 'app/components/editorMainPage/editorMainPage-partial.html',
 				controller: 'editorMainController',
 				controllerAs: 'editCtrl'
+			})
+			.state('editordocid', {
+				url: '/editor/:uuid',
+				templateUrl: 'app/components/editorDocView/editorDocView-partial.html',
+				controller: 'editorDocController',
+				controllerAs: 'editDoc'
 			});
 
 		$urlRouterProvider.otherwise('/');

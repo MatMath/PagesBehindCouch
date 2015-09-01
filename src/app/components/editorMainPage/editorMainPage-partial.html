@@ -3,7 +3,7 @@
 </div>
 Make a search bar here or something to search inside the Mapreduce data?
 <hr>
-<div ng-repeat="docType in editCtrl.mapReduceData.rows">
+<div ng-repeat="docType in editCtrl.mapReduceData.rows" ng-click="editCtrl.openThatTemplate(docType.id)">
 	<span>{{docType.id}} - {{docType.value.label | json}}</span> <span> {{docType.value.image_src}}</span>
 	<hr>
 </div>

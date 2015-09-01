@@ -4,15 +4,13 @@
 
 	angular
 		.module('pagesBehindCouch')
-		.controller('editorMainController', editorMainController);
+		.controller('editorDocController', editorDocController);
 
 	/** @ngInject */
-	function editorMainController(couchdb, $scope, $rootScope, $location, AuthenticationService) {
+	function editorDocController(couchdb, $scope, $rootScope, $location, AuthenticationService, $stateParams) {
 		//Body here
 		var vm = this;
-		vm.getCouchDBDashboardInfo = getCouchDBDashboardInfo;
-		vm.openThatTemplate = openThatTemplate;
-		vm.mapReduceData = {};
+		vm.docTemplate = {};
 
 		(function initController() {
 			// Validate if the user is still login and have access to his DB. 
@@ -36,6 +34,7 @@
 							} else {
 								// Try to re-login the user with his know username. 
 								document.dispatchEvent(new Event("authentication:reAuthenticate", $rootScope.globals.currentUser.name));
+								openTheTemplateUUID($stateParams.uuid);
 							}
 							deferred.reject("user is not login");
 						} else {
@@ -54,7 +53,7 @@
 								return;
 							}
 							// Fetch latest CouchDB Data.
-							vm.getCouchDBDashboardInfo();
+							openTheTemplateUUID($stateParams.uuid);
 						}
 						$scope.$digest();
 					},
@@ -72,33 +71,24 @@
 				});
 		}
 
-		function getCouchDBDashboardInfo() {
-			// TODO: Fetch from the Admin master DB instead of the User DB, so we can replicate the template to all User after
-			var deferred = Q.defer();
-			couchdb.getCouchDBInfo('getStagesFromTemplate')
-				.then(
-					function(response) {
-						deferred.resolve(response);
-						vm.mapReduceData = response;
-						$scope.$digest();
-					},
-					function(reason) {
-						deferred.reject(reason);
-						vm.mapReduceData = reason;
-						$scope.$digest();
-					})
-				.fail(function(exception) {
-					console.warn("there was an exception ", exception, exception.stack);
-				});
-		}
-
-		function openThatTemplate (UUID) {
-			// Middle step Instead of opening the page directly in case we want to validate something before opening the Doc.
-			if (!UUID) {
-				return;
+		function openTheTemplateUUID(UUID) {
+			if (UUID) {
+				var deferred = Q.defer();
+				couchdb.getDocData(UUID)
+					.then(
+						function(response) {
+							deferred.resolve(response);
+							vm.docTemplate = response;
+							$scope.$digest();
+						},
+						function(reason) {
+							deferred.reject(reason);
+							$scope.$digest();
+						})
+					.fail(function(exception) {
+						console.warn("there was an exception ", exception, exception.stack);
+					});
 			}
-			// Redirect the user to the DocView + That page should open + display that doc.
-			$location.path('/editor/'+ UUID);
 		}
 	}
 })();
