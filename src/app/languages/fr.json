@@ -18,5 +18,6 @@
 	"pending": "FR_Pending",
 	"failed": "FR_Failed",
 	"docview":"Vue du Document",
-	"headerTitle":"Entête"
+	"headerTitle":"Entête",
+	"editor_page":"Edition de Document"
 }

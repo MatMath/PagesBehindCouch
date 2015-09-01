@@ -33,6 +33,12 @@
 				templateUrl: 'app/components/docview/docview-partial.html',
 				controller: 'DocviewController',
 				controllerAs: 'docviewCtrl'
+			})
+			.state('editor', {
+				url: '/editor/',
+				templateUrl: 'app/components/editorMainPage/editorMainPage-partial.html',
+				controller: 'editorMainController',
+				controllerAs: 'editCtrl'
 			});
 
 		$urlRouterProvider.otherwise('/');

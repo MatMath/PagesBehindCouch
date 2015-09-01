@@ -17,5 +17,6 @@
 	"pass": "CN_Pass",
 	"pending": "CN_Pending",
 	"failed": "CN_Failed",
-	"headerTitle":"Title of the docs"
+	"headerTitle":"Title of the docs",
+	"editor_page":"Edition of Document"
 }

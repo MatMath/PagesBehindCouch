@@ -1,0 +1,9 @@
+<div>
+	<global-navbar />
+</div>
+Make a search bar here or something to search inside the Mapreduce data?
+<hr>
+<div ng-repeat="docType in editCtrl.mapReduceData.rows">
+	<span>{{docType.id}} - {{docType.value.label | json}}</span> <span> {{docType.value.image_src}}</span>
+	<hr>
+</div>

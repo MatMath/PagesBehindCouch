@@ -13,9 +13,13 @@
 		vm.logout = logout;
 		vm.changeLanguage = changeLanguage;
 		vm.currentUserName = "";
+		vm.showToManager = false;
 
 		if ($rootScope.globals && $rootScope.globals.currentUser && $rootScope.globals.currentUser.name) {
 			vm.currentUserName = $rootScope.globals.currentUser.name;
+			if ($rootScope.globals.currentUser.roles.indexOf("manager") > -1) {
+				vm.showToManager = true;	
+			}
 		} else {
 			// Probably not log-in so Investigate why
 			vm.currentUserName = $rootScope.globals;
