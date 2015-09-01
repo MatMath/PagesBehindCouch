@@ -17,7 +17,9 @@
 	"pass": "Pass",
 	"pending": "Pending",
 	"failed": "Failed",
-	"docview":"Document View",
-	"headerTitle":"Title of the docs",
-	"editor_page":"Edition of Document"
+	"docview": "Document View",
+	"headerTitle": "Title of the docs",
+	"editor_page": "Edition of Document",
+	"tableView": "Table View",
+	"inspectionStage_label":"Inspection Stage name"
 }

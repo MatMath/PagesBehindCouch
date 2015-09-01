@@ -1,0 +1,18 @@
+
+<div>
+	<global-navbar />
+</div>
+
+
+<table>
+	<thead>
+		<tr>
+			<th ng-repeat="(key, value) in tableCtrl.inspectionInfo.rows[0].value">{{key | translate}}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="arrayOfValue in tableCtrl.inspectionInfo.rows">
+			<td ng-repeat="(key, value) in arrayOfValue.value">{{value}}</td>
+		</tr>
+	</tbody>
+</table>

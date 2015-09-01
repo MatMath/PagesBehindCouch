@@ -5,6 +5,7 @@
         <li><a ng-click="vm.logout()">{{'logout' | translate}} - <i class="fa fa-user"></i> {{vm.currentUserName}}</a></li>
         <li><a ui-sref="home">{{'home' | translate}}</a></li>
         <li><a ui-sref="notification">{{'notification' | translate}}</a></li>
+        <li><a ui-sref="table">{{'tableView' | translate}}</a></li>
         <li ng-show="vm.showToManager"><a ui-sref="editor">{{'editor_page' | translate}}</a></li>
       </ul>
 	  <img src="app/img/icon-us.png" ng-click="vm.changeLanguage('en')">

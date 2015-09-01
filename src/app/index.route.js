@@ -45,6 +45,12 @@
 				templateUrl: 'app/components/editorDocView/editorDocView-partial.html',
 				controller: 'editorDocController',
 				controllerAs: 'editDoc'
+			})
+			.state('table', {
+				url: '/table/',
+				templateUrl: 'app/components/tableViewDashboard/tableView-partial.html',
+				controller: 'tableviewController',
+				controllerAs: 'tableCtrl'
 			});
 
 		$urlRouterProvider.otherwise('/');

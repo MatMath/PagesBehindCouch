@@ -17,7 +17,9 @@
 	"pass": "FR_Pass",
 	"pending": "FR_Pending",
 	"failed": "FR_Failed",
-	"docview":"Vue du Document",
-	"headerTitle":"Entête",
-	"editor_page":"Edition de Document"
+	"docview": "Vue du Document",
+	"headerTitle": "Entête",
+	"editor_page": "Edition de Document",
+	"tableView": "Vue en Tableau",
+	"inspectionStage_label":"Nom de l'inspections"
 }
