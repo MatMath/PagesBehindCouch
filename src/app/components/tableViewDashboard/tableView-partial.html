@@ -3,16 +3,48 @@
 	<global-navbar />
 </div>
 
+<button ng-click="tableCtrl.editPreferencesMode = true" ng-hide="tableCtrl.editPreferencesMode">
+	{{'open_preferences' | translate}}
+</button>
+<div ng-show="tableCtrl.editPreferencesMode">
+	<div>
+		<ul ng-repeat="titleKey in tableCtrl.allPossibleKey">
+			<li>
+				<i ng-show="tableCtrl.showIfInTheList(titleKey)" ng-click="tableCtrl.removeFromTheList(titleKey)" class="fa fa-eye"></i> 
+				<i ng-hide="tableCtrl.showIfInTheList(titleKey)" ng-click="tableCtrl.addToTheList(titleKey)" class="fa fa-eye-slash"></i> - {{titleKey}}
+			</li>
+		</ul>
+	</div>
+
+	<div>
+		<ul ng-repeat="titleKey in tableCtrl.userDisplaySequence">
+			<li> 
+				<span ng-click="tableCtrl.moveitemUp($index)"> ▲ </span> / 
+				<span ng-click="tableCtrl.moveitemDown($index)"> ▼ </span> 
+				- {{titleKey}} 
+			</li>
+		</ul>
+	</div>
+
+	<button ng-click="tableCtrl.saveNewUserPreferences()">
+		{{'save_preferences' | translate}}
+	</button>
+	<button ng-click="tableCtrl.editPreferencesMode = false">
+		{{'close_preference' | translate}}
+	</button>
+</div>
+
 
 <table>
 	<thead>
 		<tr>
-			<th ng-repeat="(key, value) in tableCtrl.inspectionInfo.rows[0].value">{{key | translate}}</th>
+			<th ng-repeat="key in tableCtrl.userDisplaySequence">{{key | translate}}</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="arrayOfValue in tableCtrl.inspectionInfo.rows">
-			<td ng-repeat="(key, value) in arrayOfValue.value">{{value}}</td>
+		<tr ng-repeat="arrayOfValue in tableCtrl.inspectionInfo.rows"
+			ng-click="tableCtrl.openThatDoc(arrayOfValue.id)">
+			<td ng-repeat="key in tableCtrl.userDisplaySequence">{{arrayOfValue.value[key]}}</td>
 		</tr>
 	</tbody>
 </table>

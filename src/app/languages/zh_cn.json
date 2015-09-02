@@ -19,5 +19,8 @@
 	"failed": "CN_Failed",
 	"headerTitle": "CN_Title of the docs",
 	"editor_page": "CN_template Editor",
-	"tableView": "CN_Table View"
+	"tableView": "CN_Table View",
+	"save_preferences": "CN_Save the Preferences",
+	"open_preferences":"CN_Open Preferences",
+	"close_preference":"CN_Close Preferences"
 }

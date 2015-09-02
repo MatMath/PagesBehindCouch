@@ -21,5 +21,8 @@
 	"headerTitle": "Entête",
 	"editor_page": "Edition de Document",
 	"tableView": "Vue en Tableau",
-	"inspectionStage_label":"Nom de l'inspections"
+	"inspectionStage_label":"Nom de l'inspections",
+	"save_preferences": "Sauvegarde des Preferences",
+	"open_preferences":"Ouvrir les preferences",
+	"close_preference":"Fermer les preferences"
 }

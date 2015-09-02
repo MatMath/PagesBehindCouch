@@ -15,15 +15,18 @@
 		vm.currentUserName = "";
 		vm.showToManager = false;
 
-		if ($rootScope.globals && $rootScope.globals.currentUser && $rootScope.globals.currentUser.name) {
-			vm.currentUserName = $rootScope.globals.currentUser.name;
-			if ($rootScope.globals.currentUser.roles.indexOf("manager") > -1) {
-				vm.showToManager = true;	
+		document.addEventListener("authentication:success", function() {
+			// The even is fire everytime a age get refresh by the Authenticatio Services.
+			if ($rootScope.globals && $rootScope.globals.currentUser && $rootScope.globals.currentUser.name) {
+				vm.currentUserName = $rootScope.globals.currentUser.name;
+				if ($rootScope.globals.currentUser.roles.indexOf("manager") > -1) {
+					vm.showToManager = true;	
+				}
+			} else {
+				// Probably not log-in so Investigate why
+				vm.currentUserName = $rootScope.globals;
 			}
-		} else {
-			// Probably not log-in so Investigate why
-			vm.currentUserName = $rootScope.globals;
-		}
+		});
 
 		function logout() {
 			console.log("Logout");
@@ -67,10 +70,11 @@
 					function(reason) {
 						deferred2.reject(reason);
 						if (reason.error === "not_found") {
-							// Preferences are missing, so Write new one.
+							// Preferences are missing, so Write new Generic one.
 							var genericPreferences = {
 								"_id": "user_preferences",
-								"lang": key
+								"lang": key,
+								"tableViewDisplaySequence": ["starred","inspectionStage_label","purchaseOrder_number","sku_number","has_sku_params","qtyToInspect","assignment_id","status"]
 							};
 							AuthenticationService.updateUserPreferences(genericPreferences);
 							couchdb.updateUserPreferences(genericPreferences);

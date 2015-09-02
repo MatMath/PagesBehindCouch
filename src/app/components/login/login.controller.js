@@ -77,7 +77,8 @@
 										// Preferences are missing, so Write new one.
 										var genericPreferences = {
 											"_id": "user_preferences",
-											"lang": "en"
+											"lang": "en",
+											"tableViewDisplaySequence": ["starred","inspectionStage_label","purchaseOrder_number","sku_number","has_sku_params","qtyToInspect","assignment_id","status"]
 										};
 										AuthenticationService.updateUserPreferences(genericPreferences);
 										couchdb.updateUserPreferences(genericPreferences);
