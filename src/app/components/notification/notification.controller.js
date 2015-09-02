@@ -7,7 +7,7 @@
 		.controller('NotificationController', NotificationController);
 
 	/** @ngInject */
-	function NotificationController(couchdb, $scope, $rootScope, $location, AuthenticationService) {
+	function NotificationController(couchdb, $scope) {
 		//Body here
 		var vm = this;
 		vm.getCouchDBDashboardInfo = getCouchDBDashboardInfo;
@@ -38,15 +38,10 @@
 		};
 
 		document.addEventListener("authentication:success", function() {
+			// This Event is trigger by the navbar at loading, When the navbar is authenticating the user, it will propagate this even and launch the Data retrival.
 			// Since the user is Login, Access is Data.
 			getCouchDBDashboardInfo();
 		});
-
-		(function initController() {
-			// Validate if the user is still login and have access to his DB.
-			// I have to pass the scope in order to trigger scope.$apply();
-			AuthenticationService.validateWhoIsLogin($scope);
-		})();
 
 		function getCouchDBDashboardInfo() {
 			var deferred = Q.defer();

@@ -13,6 +13,7 @@
 		vm.docTemplate = {};
 
 		document.addEventListener("authentication:success", function() {
+			// This Event is trigger by the navbar at loading, When the navbar is authenticating the user, it will propagate this even and launch the Data retrival.
 			if ($rootScope.globals.currentUser && $rootScope.globals.currentUser.roles && $rootScope.globals.currentUser.roles.indexOf("manager") > -1) {
 				// The user have manager right, so Fetch the data.
 				openTheTemplateUUID($stateParams.uuid);
@@ -23,12 +24,6 @@
 				return;
 			}
 		});
-
-		(function initController() {
-			// Validate if the user is still login and have access to his DB.
-			// I have to pass the scope in order to trigger scope.$apply();
-			AuthenticationService.validateWhoIsLogin($scope);
-		})();
 
 		function openTheTemplateUUID(UUID) {
 			if (UUID) {

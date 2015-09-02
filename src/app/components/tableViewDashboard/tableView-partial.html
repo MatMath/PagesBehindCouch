@@ -6,6 +6,9 @@
 <button ng-click="tableCtrl.editPreferencesMode = true" ng-hide="tableCtrl.editPreferencesMode">
 	{{'open_preferences' | translate}}
 </button>
+<button ng-click="tableCtrl.editPreferencesMode = false" ng-show="tableCtrl.editPreferencesMode">
+		{{'close_preference' | translate}}
+</button>
 <div ng-show="tableCtrl.editPreferencesMode">
 	<div>
 		<ul ng-repeat="titleKey in tableCtrl.allPossibleKey">
@@ -29,11 +32,7 @@
 	<button ng-click="tableCtrl.saveNewUserPreferences()">
 		{{'save_preferences' | translate}}
 	</button>
-	<button ng-click="tableCtrl.editPreferencesMode = false">
-		{{'close_preference' | translate}}
-	</button>
 </div>
-
 
 <table>
 	<thead>

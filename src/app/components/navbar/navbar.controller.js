@@ -1,4 +1,4 @@
-/* global Q, console */
+/* global Q, document, console */
 
 (function() {
 	'use strict';
@@ -27,6 +27,12 @@
 				vm.currentUserName = $rootScope.globals;
 			}
 		});
+
+		(function initController() {
+			// Validate if the user is still login and have access to his DB. 
+			// I have to pass the scope in order to trigger scope.$apply();
+			AuthenticationService.validateWhoIsLogin($scope);
+		})();
 
 		function logout() {
 			console.log("Logout");

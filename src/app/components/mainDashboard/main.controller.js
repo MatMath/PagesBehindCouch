@@ -7,7 +7,7 @@
 		.controller('MainController', MainController);
 
 	/** @ngInject */
-	function MainController(couchdb, $scope, $rootScope, $location, AuthenticationService) {
+	function MainController(couchdb, $scope, $rootScope, $location) {
 		//Body here
 		var vm = this;
 		vm.setInspectionInRightCathegory = setInspectionInRightCathegory; //Exposing the function only to be able to test it
@@ -19,15 +19,10 @@
 
 
 		document.addEventListener("authentication:success", function() {
+			// This Event is trigger by the navbar at loading, When the navbar is authenticating the user, it will propagate this even and launch the Data retrival.
 			// Since the user is Login, Access is Data.
 			getStagesFromTemplate();
 		});
-
-		(function initController() {
-			// Validate if the user is still login and have access to his DB. 
-			// I have to pass the scope in order to trigger scope.$apply();
-			AuthenticationService.validateWhoIsLogin($scope);
-		})();
 
 		function getStagesFromTemplate() {
 			// All cathegory 

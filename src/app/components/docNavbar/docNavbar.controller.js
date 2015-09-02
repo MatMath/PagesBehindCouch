@@ -7,10 +7,16 @@
 		.controller('docNavbarCtrl', docNavbarCtrl);
 
 	/** @ngInject */
-	function docNavbarCtrl(AuthenticationService, $translate, couchdb) {
+	function docNavbarCtrl(AuthenticationService, $translate, $scope, couchdb) {
 		var vm = this;
 		vm.changeLanguage = changeLanguage;
 		vm.currentUserName = "";
+
+		(function initController() {
+			// Validate if the user is still login and have access to his DB. 
+			// I have to pass the scope in order to trigger scope.$apply();
+			AuthenticationService.validateWhoIsLogin($scope);
+		})();
 
 		function changeLanguage(key) {
 			console.log('language changed to ' + key);
