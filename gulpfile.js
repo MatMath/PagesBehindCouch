@@ -14,6 +14,7 @@ var uglify = require('gulp-uglify');
 var ngAnnotate = require('gulp-ng-annotate');
 var del = require('del');
 var argv = require('yargs').argv;
+var sass = require('gulp-sass');
 
 /**
  *  This will load all js or coffee files in the gulp directory
@@ -48,4 +49,14 @@ gulp.task('buildClient', function() {
 	del(['src/app/currentClient']);
 	gulp.src([clientLocation])
 		.pipe(gulp.dest('src/app/currentClient'));
+});
+
+gulp.task('sass', function () {
+  gulp.src('./sass/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./css'));
+});
+ 
+gulp.task('sass:watch', function () {
+  gulp.watch('./sass/**/*.scss', ['sass']);
 });
