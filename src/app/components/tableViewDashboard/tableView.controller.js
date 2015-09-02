@@ -70,7 +70,6 @@
 		}
 
 		function setTitleArray (firstRowData) {
-			console.log(firstRowData);
 			for (var element in firstRowData) {
 				vm.allPossibleKey.push(element);
 			}
