@@ -56,8 +56,7 @@
 		$urlRouterProvider.otherwise('/');
 	}
 
-	run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
-
+	/** @ngInject */
 	function run($rootScope, $location, $cookies, $http) {
 		// keep user logged in after page refresh
 		$rootScope.globals = $cookies.get('globals') || {};
@@ -78,6 +77,10 @@
 		document.addEventListener('bug', function(excep) {
 			// Do Something here like send notification to the Dev Team
 			console.warn("there was an excep in:" + excep.from, excep);
+		});
+
+		document.addEventListener("authentication:redirectToLogin", function() {
+			$location.path('/login');
 		});
 	}
 
