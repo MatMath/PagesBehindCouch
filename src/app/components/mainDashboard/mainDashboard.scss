@@ -1,0 +1,47 @@
+/**
+ *  Do not remove this comments bellow. It's the markers used by wiredep to inject
+ *  sass dependencies when defined in the bower.json of your dependencies
+ */
+// bower:scss
+// endbower
+
+
+/*statusColor (extracted from the mapreduce): new, formstarted, completed*/
+.formstarted {
+	background-color: rgba(255, 255, 100, 0.3);
+}
+
+.completed {
+	background-color: rgba(34, 139, 34, 0.3);
+}
+
+/* ConclusionColor (extracted from the mapreduce): accept, onhold, reject */
+.accept{
+	color: #050;
+}
+
+.onhold {
+	color: #005;
+}
+
+.reject {
+	color: #500;
+}
+/* END of Conclusion Color */
+
+.img-circle {
+  -webkit-border-radius: 500px;
+     -moz-border-radius: 500px;
+          border-radius: 500px;
+}
+
+.text-centered {
+	text-align: center;
+}
+
+/**
+ *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject
+ *  all your sass files automatically
+ */
+// injector
+// endinjector

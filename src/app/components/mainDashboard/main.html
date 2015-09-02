@@ -8,14 +8,15 @@
 		<tbody>
 			<tr>
 				<td ng-repeat="(StageID, StageArray) in mainCtrl.splitIntoStage" valign="top">
-					<div ng-hide="hideStagePictures == true">
-						<img ng-click="createNewInspectionForm(StageID[0], locale.locale_label_key)" ng-src="img/{{StageID[0].image_src}}">
+					<div class="text-centered" ng-hide="hideStagePictures == true">
+						<img class="img-circle" ng-click="createNewInspectionForm(StageID[0], locale.locale_label_key)" ng-src="app/img/{{StageArray[0].value.image_src}}" fallback-src="app/img/fallback.jpg">
 					</div>
-					<div ng-click="createNewInspectionForm(StageID[0], locale.locale_label_key)">
-						<i ng-show="blankInspectionForm"></i>{{StageArray[0].value.label.en}}
+					<div class="text-centered" ng-click="createNewInspectionForm(StageID[0], locale.locale_label_key)">
+						<i ng-show="blankInspectionForm"></i>
+						<b>{{StageArray[0].value.label.en}}</b>
 					</div>
 
-					<div ng-repeat="(key, value) in StageArray" ng-click="mainCtrl.openThatDoc(value.id)">
+					<div ng-repeat="(key, value) in StageArray" ng-click="mainCtrl.openThatDoc(value.id)" class="{{value.statusColor}} {{value.conclusionColor}}">
 						<!-- <span ng-class="{'star_on': value.starred==1, 'star_off': value.starred!=1}">★</span> -->
 						<span ng-show="value.has_sku_params">
 							[✔]
