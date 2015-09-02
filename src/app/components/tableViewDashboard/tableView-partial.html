@@ -3,15 +3,15 @@
 	<global-navbar />
 </div>
 
-<button ng-click="tableCtrl.editPreferencesMode = true" ng-hide="tableCtrl.editPreferencesMode">
+<button class="btn btn-inverse" ng-click="tableCtrl.editPreferencesMode = true" ng-hide="tableCtrl.editPreferencesMode">
 	{{'open_preferences' | translate}}
 </button>
-<button ng-click="tableCtrl.editPreferencesMode = false" ng-show="tableCtrl.editPreferencesMode">
+<button class="btn btn-inverse" ng-click="tableCtrl.editPreferencesMode = false" ng-show="tableCtrl.editPreferencesMode">
 		{{'close_preference' | translate}}
 </button>
 <div ng-show="tableCtrl.editPreferencesMode">
-	<div>
-		<ul ng-repeat="titleKey in tableCtrl.allPossibleKey">
+	<div class="alignHalfLeft">
+		<ul class="list-group" ng-repeat="titleKey in tableCtrl.allPossibleKey">
 			<li>
 				<i ng-show="tableCtrl.showIfInTheList(titleKey)" ng-click="tableCtrl.removeFromTheList(titleKey)" class="fa fa-eye"></i> 
 				<i ng-hide="tableCtrl.showIfInTheList(titleKey)" ng-click="tableCtrl.addToTheList(titleKey)" class="fa fa-eye-slash"></i> - {{titleKey}}
@@ -19,22 +19,22 @@
 		</ul>
 	</div>
 
-	<div>
-		<ul ng-repeat="titleKey in tableCtrl.userDisplaySequence">
+	<div class="alignHalfRight">
+		<ul class="list-group" ng-repeat="titleKey in tableCtrl.userDisplaySequence">
 			<li> 
+				<i ng-show="tableCtrl.showIfInTheList(titleKey)" ng-click="tableCtrl.removeFromTheList(titleKey)" class="fa fa-eye"></i> 
 				<span ng-click="tableCtrl.moveitemUp($index)"> ▲ </span> / 
 				<span ng-click="tableCtrl.moveitemDown($index)"> ▼ </span> 
 				- {{titleKey}} 
 			</li>
 		</ul>
 	</div>
-
-	<button ng-click="tableCtrl.saveNewUserPreferences()">
-		{{'save_preferences' | translate}}
-	</button>
 </div>
+<button class="btn btn-inverse" ng-class="{'btn-warning':tableCtrl.unsavedChange}"ng-click="tableCtrl.saveNewUserPreferences()" ng-show="tableCtrl.editPreferencesMode">
+	{{'save_preferences' | translate}}
+</button>
 
-<table>
+<table class="table">
 	<thead>
 		<tr>
 			<th ng-repeat="key in tableCtrl.userDisplaySequence">{{key | translate}}</th>

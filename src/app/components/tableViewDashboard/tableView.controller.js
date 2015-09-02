@@ -23,6 +23,7 @@
 		vm.userDisplaySequence = [];
 		vm.editPreferencesMode = false;
 		vm.preferences = $rootScope.userPreferences;
+		vm.unsavedChange = false;
 
 		document.addEventListener("authentication:success", function() {
 			// This Event is trigger by the navbar at loading, When the navbar is authenticating the user, it will propagate this even and launch the Data retrival.
@@ -85,12 +86,14 @@
 			if (item) {
 				var itemIndex = vm.userDisplaySequence.indexOf(item);
 				vm.userDisplaySequence.splice(itemIndex, 1);
+				changeToUnsave();
 			}
 		}
 		
 		function addToTheList (item) {
 			if (item) {
 				vm.userDisplaySequence.push(item);
+				changeToUnsave();
 			}
 		}
 
@@ -99,6 +102,7 @@
 				// Step1, Remove the item from current position.
 				// Step 2 add it to the other position (-1).
 				vm.userDisplaySequence.splice(index - 1, 0, vm.userDisplaySequence.splice(index, 1)[0]);
+				changeToUnsave();
 			}
 		}
 
@@ -107,6 +111,7 @@
 				// Step1, Remove the item from current position.
 				// Step 2 add it to the other position (+1).
 				vm.userDisplaySequence.splice(index + 1, 0, vm.userDisplaySequence.splice(index, 1)[0]);
+				changeToUnsave();
 			}	
 		}
 
@@ -120,6 +125,7 @@
 						AuthenticationService.updateUserPreferences(response);
 						couchdb.updateUserPreferences(response);
 						vm.editPreferencesMode = false;
+						vm.unsavedChange = false;
 						$scope.$apply(); //Because Angular do not see it passing
 					},
 					function(reason) {
@@ -138,6 +144,10 @@
 				.fail(function(exception) {
 					console.warn("there was an exception ", exception, exception.stack);
 				});
+		}
+
+		function changeToUnsave () {
+			vm.unsavedChange = true;
 		}
 
 	}
