@@ -1,9 +1,11 @@
 node_modules/
 bower_components/
+ericaPushThis/
 .sass-cache/
 .idea/
 .tmp/
 .DS_Store
+.couchpass.json
 dist/
 app.js
 src/app/currentClient/*

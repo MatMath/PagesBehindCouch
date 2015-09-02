@@ -1,6 +1,9 @@
 ## Goal:
 Making a Simple, but complete structure with many pages behind a protected login pages that connect to a CouchDB.
 
+Manual install needed: 
+"erica" https://github.com/benoitc/erica to be able to push it to a remote couchDB. 
+
 How to run it locally:
 $ gulp server
 

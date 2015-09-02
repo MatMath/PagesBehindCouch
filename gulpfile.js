@@ -7,6 +7,8 @@
 
 'use strict';
 
+// Dependency needed that was not installed  by npm (yet): https://github.com/benoitc/erica
+
 var gulp = require('gulp');
 var wrench = require('wrench');
 var concat = require('gulp-concat');
@@ -15,6 +17,12 @@ var ngAnnotate = require('gulp-ng-annotate');
 var del = require('del');
 var argv = require('yargs').argv;
 var sass = require('gulp-sass');
+var shell = require('gulp-shell')
+
+// Password storage
+var pass_file = require('./.couchpass.json');
+var user_name = pass_file.user;
+var password = pass_file.pass;
 
 /**
  *  This will load all js or coffee files in the gulp directory
@@ -60,3 +68,8 @@ gulp.task('sass', function () {
 gulp.task('sass:watch', function () {
   gulp.watch('./sass/**/*.scss', ['sass']);
 });
+
+gulp.task('ericapush', shell.task([
+  'erica push ./ericaPushThis https://'+user_name+':'+password+'@localhost:6984/testdb'
+]));
+
