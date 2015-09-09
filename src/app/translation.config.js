@@ -86,5 +86,5 @@
 			// resolve with translation data
 			return deferred.promise;
 		};
-	};
+	}
 })();
