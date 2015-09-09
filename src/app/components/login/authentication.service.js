@@ -20,7 +20,8 @@
 			'SetCredentials': SetCredentials,
 			'getUserPreferencesLocation': getUserPreferencesLocation,
 			'updateUserPreferences': updateUserPreferences,
-			'validateWhoIsLogin': validateWhoIsLogin
+			'validateWhoIsLogin': validateWhoIsLogin,
+			'getTranslationLocation': getTranslationLocation
 		};
 
 		return service;
@@ -107,6 +108,10 @@
 			}
 		}
 
+		function getTranslationLocation(languageKey) {
+			return service.getBasicUrl() + 'globals/' + languageKey + '/';
+		}
+
 		function validateWhoIsLogin(scope) {
 			// At opening, fetch all user that are already login in the system (DB already downloaded in couchdb)
 
@@ -136,7 +141,7 @@
 							}
 							deferred.resolve(response.userCtx.name);
 							// Fetch latest CouchDB Data.
-							document.dispatchEvent(new Event("authentication:success", $rootScope.globals.currentUser.name));
+							document.dispatchEvent(new Event("authentication:success", $rootScope.globals.currentUser));
 						}
 					},
 					function(reason) {

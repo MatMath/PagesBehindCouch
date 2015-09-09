@@ -13,6 +13,7 @@
 		vm.getCouchDBInfo = getCouchDBInfo;
 		vm.getUserPreferences = getUserPreferences;
 		vm.updateUserPreferences = updateUserPreferences;
+		vm.getUserTranslation = getUserTranslation;
 		vm.getDocData = getDocData;
 
 		function getCouchDBInfo(mapReduce) {
@@ -33,6 +34,7 @@
 			});
 		}
 
+
 		function updateUserPreferences(preferences) {
 			if (preferences) {
 				var url = AuthenticationService.getUserPreferencesLocation();
@@ -42,6 +44,14 @@
 					data: preferences
 				});
 			}
+		}
+
+		function getUserTranslation(languageKey) {
+			var url = AuthenticationService.getTranslationLocation(languageKey);
+			return CORS.makeCORSRequest({
+				url: url,
+				method: "GET"
+			});
 		}
 
 		function getDocData(UUID) {
