@@ -1,0 +1,31 @@
+{
+	"_id": "global_en",
+	"translation": {
+		"home": "Home",
+		"hello": "Hello",
+		"username": "Username",
+		"username_require": "Username is required",
+		"password": "Password",
+		"password_require": "Password is required",
+		"login": "Login",
+		"known_user": "User already in the system",
+		"logout": "Logout",
+		"notification": "Notification",
+		"new": "New",
+		"started": "Started",
+		"completed": "Completed",
+		"pending_processing": "Pending Processing",
+		"new_inspections": "New Inspections",
+		"pass": "Pass",
+		"pending": "Pending",
+		"failed": "Failed",
+		"docview": "Document View",
+		"headerTitle": "Title of the docs",
+		"editor_page": "Edition of Document",
+		"tableView": "Table View",
+		"inspectionStage_label": "Inspection Stage name",
+		"save_preferences": "Save the Preferences",
+		"open_preferences": "Open Preferences",
+		"close_preference": "Close Preferences"
+	}
+}

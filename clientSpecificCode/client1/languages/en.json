@@ -1,0 +1,7 @@
+{
+	"_id": "specific_en",
+	"translation": {
+		"home": "Client 1 Specific Home",
+		"hello": "Client 1 Specific Hello"
+	}
+}

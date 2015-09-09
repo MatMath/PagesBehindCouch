@@ -1,0 +1,8 @@
+{
+	"_id": "specific_fr",
+	"translation": {
+		"home": "Client 1 Specific Maison",
+		"hello": "Client 1 Specific Bonjour",
+		"newTagSpecific":"1"
+	}
+}

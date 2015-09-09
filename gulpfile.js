@@ -16,8 +16,8 @@ var uglify = require('gulp-uglify');
 var ngAnnotate = require('gulp-ng-annotate');
 var del = require('del');
 var argv = require('yargs').argv;
-var sass = require('gulp-sass');
-var shell = require('gulp-shell')
+var shell = require('gulp-shell');
+var push = require('couch-push');
 
 // Password storage
 var pass_file = require('./.couchpass.json');
@@ -59,14 +59,21 @@ gulp.task('buildClient', function() {
 		.pipe(gulp.dest('src/app/currentClient'));
 });
 
-gulp.task('sass', function () {
-  gulp.src('./sass/**/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./css'));
-});
- 
-gulp.task('sass:watch', function () {
-  gulp.watch('./sass/**/*.scss', ['sass']);
+gulp.task('couch-push', function() {
+	var listOfFile = ["en.json", "fr.json", "zh_cn.json", "de.json"];
+	// This is a temporary setup to Begin with basic translation in a global folder, later this will be in a separate Repo handled by Weblate Soft.
+	for (var file in listOfFile) {
+		push('http://localhost:5984/globals', 'src/app/languages/'+listOfFile[file], function(err, resp) {
+		  console.log('globals: '+listOfFile[file], resp);
+		});
+	}
+
+	// This is a temporary setup to Begin with basic translation in a global folder, later this will be in a separate Repo handled by Weblate Soft.
+	for (var fileSpecific in listOfFile) {
+		push('http://localhost:5984/globals', 'src/app/currentClient/languages/'+listOfFile[fileSpecific], function(err, resp) {
+		  console.log('currentClient '+listOfFile[fileSpecific], resp);
+		});
+	}
 });
 
 gulp.task('ericapush', shell.task([
