@@ -133,7 +133,7 @@ CORS.makeCORSRequest = function(options) {
   var onProgress = function(e) {
     if (e.lengthComputable) {
       var percentComplete = (e.loaded / e.total) * 100;
-      console.log("percentComplete", percentComplete);
+      // console.log("percentComplete", percentComplete);
     }
   };
   xhr.addEventListener("progress", onProgress, false);
