@@ -4,6 +4,13 @@ Making a Simple, but complete structure with many pages behind a protected login
 Manual install needed: 
 "erica" https://github.com/benoitc/erica to be able to push it to a remote couchDB. 
 
+How to run it the first time:
+Need to have couchDB install locally.
+$ bower install
+$ npm install
+$ gulp buildClient --client=client1
+$ gulp couch-push
+
 How to run it locally:
 $ gulp server
 
